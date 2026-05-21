@@ -15,10 +15,10 @@ export const metadata = {
     title: "DocAppoint — Book Top Doctors in Bangladesh",
     description: "Find and book verified specialist doctors in Bangladesh.",
     type: "website",
-    url: "https://doc-appoint-client.vercel.app",
+    url: "https://doc-appoint-client-side.vercel.app",
     images: [
       {
-        url: "https://doc-appoint-client.vercel.app/thumbnail.png",
+        url: "https://doc-appoint-client-side.vercel.app/thumbnail.png",
         width: 1200,
         height: 630,
       },
@@ -26,10 +26,30 @@ export const metadata = {
   },
 };
 
+// Early-Execution Inline Script to block theme flashes
+function ThemeScript() {
+  const themeLoaderCode = `
+    (function() {
+      try {
+        const saved = localStorage.getItem("da_theme") || "light";
+        if (saved === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch (e) {}
+    })()
+  `;
+  return <script dangerouslySetInnerHTML={{ __html: themeLoaderCode }} />;
+}
+
 export default function RootLayout({ children }) {
   return (
+    // Added suppressHydrationWarning here
     <html lang="en" suppressHydrationWarning>
       <head>
+        <ThemeScript />
+         {/* Injected blocking script execution block */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap"
