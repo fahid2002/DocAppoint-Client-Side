@@ -57,7 +57,7 @@ export default function LoginClient() {
   const handleGoogle = async () => {
     setLoading(true);
     try {
-      await signIn.social({ provider: "google", callbackURL: redirect });
+      await signIn.social({ provider: "google", callbackURL: "/dashboard" });
       // Google redirects away — JWT is issued in DashboardClient after redirect
     } catch {
       toast.error("Google sign-in failed.");

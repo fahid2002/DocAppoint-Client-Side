@@ -5,7 +5,7 @@ export const authClient = createAuthClient({
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
     (typeof window !== "undefined"
       ? window.location.origin
-      : "https://doc-appoint-client.vercel.app"),
+      : "https://doc-appoint-client-side.vercel.app"),
 });
 
 export const { signIn, signOut, signUp, useSession, getSession } = authClient;
