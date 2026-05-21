@@ -53,12 +53,13 @@ export default function Footer() {
     ],
   };
 
-  const linkClass = "block text-[12.5px] text-white/45 mb-[0.45rem] transition-colors duration-200 hover:text-white cursor-pointer bg-transparent border-none p-0 font-[inherit] text-left";
+  const linkClass =
+    "block text-[12.5px] text-white/45 mb-[0.45rem] transition-colors duration-200 hover:text-white cursor-pointer bg-transparent border-none p-0 font-[inherit] text-left";
 
   return (
     <>
       {/* ── Footer ── */}
-      <footer className="bg-[var(--ft-bg)] pt-14 pb-0">
+      <footer className="bg-(--ft-bg) pt-14 pb-0">
         <div className="max-w-[1200px] mx-auto px-6">
 
           {/* Grid */}
@@ -66,15 +67,15 @@ export default function Footer() {
 
             {/* Brand column */}
             <div>
-              <div className="flex items-center gap-[10px] mb-[0.9rem]">
-                <div className="w-9 h-9 rounded-[9px] bg-gradient-to-br from-[var(--p)] to-[var(--acc)] flex items-center justify-center text-[17px] text-white">
+              <div className="flex items-center gap-2.5 mb-[0.9rem]">
+                <div className="w-9 h-9 rounded-[9px] bg-gradient-to-br from-(--p) to-(--acc) flex items-center justify-center text-[17px] text-white">
                   <i className="ti ti-stethoscope" aria-hidden="true" />
                 </div>
                 <span className="font-[Sora,sans-serif] text-[18px] font-extrabold text-white">
-                  Doc<span className="text-[var(--acc3)]">Appoint</span>
+                  Doc<span className="text-(--acc3)">Appoint</span>
                 </span>
               </div>
-              <p className="text-[12.5px] text-white/45 leading-[1.65] mb-[1.1rem] max-w-[220px]">
+              <p className="text-[12.5px] text-white/45 leading-[1.65] mb-[1.1rem] max-w-55">
                 Bangladesh&apos;s most trusted platform for finding and booking verified specialist doctors.
                 Fast, secure, and completely patient-first — available 24/7.
               </p>
@@ -178,17 +179,17 @@ export default function Footer() {
           className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={(e) => e.target === e.currentTarget && setContactOpen(false)}
         >
-          <div className="bg-[var(--bg)] border border-[var(--bdr)] rounded-2xl p-7 w-full max-w-[460px] shadow-2xl">
+          <div className="bg-(--bg) border border-(--bdr) rounded-2xl p-7 w-full max-w-[460px] shadow-2xl">
 
             {/* Modal header */}
             <div className="flex justify-between items-center mb-[1.3rem]">
-              <h3 className="font-[Sora,sans-serif] text-[18px] font-extrabold text-[var(--tx)] flex items-center gap-2">
-                <i className="ti ti-mail text-[var(--p)] text-[17px]" />
+              <h3 className="font-[Sora,sans-serif] text-[18px] font-extrabold text-(--tx) flex items-center gap-2">
+                <i className="ti ti-mail text-(--p) text-[17px]" />
                 Contact Us
               </h3>
               <button
                 onClick={() => setContactOpen(false)}
-                className="w-8 h-8 rounded-lg border-[1.5px] border-[var(--bdr)] bg-transparent flex items-center justify-center text-[var(--tx-2)] hover:text-[var(--tx)] hover:bg-[var(--s2)] transition-colors duration-200 cursor-pointer text-base"
+                className="w-8 h-8 rounded-lg border-[1.5px] border-(--bdr) bg-transparent flex items-center justify-center text-(--tx-2) hover:text-(--tx) hover:bg-(--s2) transition-colors duration-200 cursor-pointer text-base"
               >
                 <i className="ti ti-x" />
               </button>
@@ -197,47 +198,47 @@ export default function Footer() {
             {/* Form */}
             <form ref={formRef} onSubmit={handleContact} className="flex flex-col gap-[0.85rem]">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-[var(--tx-2)]">Your Name</label>
+                <label className="text-xs font-semibold text-(--tx-2)">Your Name</label>
                 <input
                   name="from_name"
                   required
                   placeholder="Fahid Hasan"
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-[var(--bdr)] bg-[var(--bg3)] text-[var(--tx)] outline-none focus:border-[var(--p)] transition-colors duration-200 w-full"
+                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-[var(--tx-2)]">Email Address</label>
+                <label className="text-xs font-semibold text-(--tx-2)">Email Address</label>
                 <input
                   name="from_email"
                   type="email"
                   required
                   placeholder="fahid@gmail.com"
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-[var(--bdr)] bg-[var(--bg3)] text-[var(--tx)] outline-none focus:border-[var(--p)] transition-colors duration-200 w-full"
+                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-[var(--tx-2)]">Subject</label>
+                <label className="text-xs font-semibold text-(--tx-2)">Subject</label>
                 <input
                   name="subject"
                   required
                   placeholder="How can we help?"
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-[var(--bdr)] bg-[var(--bg3)] text-[var(--tx)] outline-none focus:border-[var(--p)] transition-colors duration-200 w-full"
+                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-[var(--tx-2)]">Message</label>
+                <label className="text-xs font-semibold text-(--tx-2)">Message</label>
                 <textarea
                   name="message"
                   required
                   rows={4}
                   placeholder="Write your message here..."
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-[var(--bdr)] bg-[var(--bg3)] text-[var(--tx)] outline-none focus:border-[var(--p)] transition-colors duration-200 w-full resize-vertical font-[DM_Sans,sans-serif]"
+                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full resize-vertical font-[DM_Sans,sans-serif]"
                 />
               </div>
               <button
                 type="submit"
                 disabled={sending}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold bg-[var(--p)] text-white hover:bg-[var(--p-dark)] disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 mt-1 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold bg-(--p) text-white hover:bg-(--p-dark) disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 mt-1 cursor-pointer"
               >
                 <i className="ti ti-send" />
                 {sending ? "Sending..." : "Send Message"}
