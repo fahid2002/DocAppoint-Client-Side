@@ -18,25 +18,20 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Protected endpoints that should redirect to login on 401
-const PROTECTED_ENDPOINTS = ["/appointments"];
-
+// Only redirect on 401 if not an auth endpoint and not already on login page
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     const is401 = error.response?.status === 401;
-    const url = error.config?.url || "";
-    const isAuthEndpoint = url.includes("/auth/");
-    const isProtectedEndpoint = PROTECTED_ENDPOINTS.some((ep) => url.includes(ep));
+    const isAuthEndpoint = error.config?.url?.includes("/auth/");
     const isLoginPage =
       typeof window !== "undefined" &&
       window.location.pathname.startsWith("/login");
 
-    if (is401 && !isAuthEndpoint && isProtectedEndpoint && !isLoginPage) {
+    if (is401 && !isAuthEndpoint && !isLoginPage) {
       localStorage.removeItem("da_jwt");
       window.location.href = "/login";
     }
-
     return Promise.reject(error);
   }
 );
