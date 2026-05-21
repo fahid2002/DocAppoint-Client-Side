@@ -1,3 +1,5 @@
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://docappoint-server-o99c.onrender.com/api";
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -12,15 +14,15 @@ const nextConfig = {
     return [
       {
         source: "/api/doctors/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/api/doctors/:path*`,
+        destination: `${API_BASE}/doctors/:path*`,
       },
       {
         source: "/api/appointments/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/api/appointments/:path*`,
+        destination: `${API_BASE}/appointments/:path*`,
       },
       {
         source: "/api/reviews/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/api/reviews/:path*`,
+        destination: `${API_BASE}/reviews/:path*`,
       },
     ];
   },

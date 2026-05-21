@@ -56,6 +56,9 @@ export default function Footer() {
   const linkClass =
     "block text-[12.5px] text-white/45 mb-[0.45rem] transition-colors duration-200 hover:text-white cursor-pointer bg-transparent border-none p-0 font-[inherit] text-left";
 
+  const socialClass =
+    "w-8 h-8 rounded-lg flex items-center justify-center text-white/50 border border-white/10 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-200 text-sm";
+
   return (
     <>
       {/* ── Footer ── */}
@@ -79,24 +82,24 @@ export default function Footer() {
                 Bangladesh&apos;s most trusted platform for finding and booking verified specialist doctors.
                 Fast, secure, and completely patient-first — available 24/7.
               </p>
+
+              {/* Social icons — hardcoded to avoid JSX parsing issues */}
               <div className="flex gap-[7px]">
-                {[
-                  { icon: "ti-brand-x", href: "https://x.com/fh_ifty" },
-                  { icon: "ti-brand-facebook", href: "https://www.facebook.com/fh.ifty.1" },
-                  { icon: "ti-brand-instagram", href: "https://www.instagram.com/fahidhasankhanifty/" },
-                  { icon: "ti-brand-linkedin", href: "https://www.linkedin.com/in/fahid-hasan-280425382/" },
-                  { icon: "ti-brand-github", href: "https://github.com/fahid2002" },
-                ].map((s) => (
-                  
-                    key={s.icon}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-white/50 border border-white/10 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-200 text-sm"
-                  >
-                    <i className={`ti ${s.icon}`} aria-hidden="true" />
-                  </a>
-                ))}
+                <a href="https://x.com/fh_ifty" target="_blank" rel="noopener noreferrer" className={socialClass}>
+                  <i className="ti ti-brand-x" aria-hidden="true" />
+                </a>
+                <a href="https://www.facebook.com/fh.ifty.1" target="_blank" rel="noopener noreferrer" className={socialClass}>
+                  <i className="ti ti-brand-facebook" aria-hidden="true" />
+                </a>
+                <a href="https://www.instagram.com/fahidhasankhanifty/" target="_blank" rel="noopener noreferrer" className={socialClass}>
+                  <i className="ti ti-brand-instagram" aria-hidden="true" />
+                </a>
+                <a href="https://www.linkedin.com/in/fahid-hasan-280425382/" target="_blank" rel="noopener noreferrer" className={socialClass}>
+                  <i className="ti ti-brand-linkedin" aria-hidden="true" />
+                </a>
+                <a href="https://github.com/fahid2002" target="_blank" rel="noopener noreferrer" className={socialClass}>
+                  <i className="ti ti-brand-github" aria-hidden="true" />
+                </a>
               </div>
             </div>
 

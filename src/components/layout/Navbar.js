@@ -54,16 +54,16 @@ export default function Navbar() {
   return (
     <>
       {/* ── Navbar ── */}
-      <nav className="fixed top-0 left-0 right-0 z-[200] h-[66px] bg-[var(--nav)] border-b border-[var(--nav-bdr)] backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between gap-4">
+      <nav className="navbar">
+        <div className="nav-inner">
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-[10px] cursor-pointer flex-shrink-0">
-            <div className="w-9 h-9 rounded-xl bg-[var(--p)] flex items-center justify-center text-white text-lg">
+            <div className="logo-mark">
               <i className="ti ti-stethoscope" aria-hidden="true" />
             </div>
             <span className="font-[Sora,sans-serif] text-[18px] font-extrabold text-[var(--tx)] tracking-tight">
-              Doc<span className="text-[var(--p)]">Appoint</span>
+              Doc<span className="text-[var(--acc3)]">Appoint</span>
             </span>
           </Link>
 
@@ -73,11 +73,7 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                  pathname === l.href
-                    ? "bg-[var(--p3)] text-[var(--p)] font-semibold"
-                    : "text-[var(--tx-2)] hover:text-[var(--tx)] hover:bg-[var(--s2)]"
-                }`}
+                className={`nav-link ${pathname === l.href ? "active" : ""}`}
               >
                 {l.label}
               </Link>
@@ -91,7 +87,7 @@ export default function Navbar() {
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-[var(--tx-2)] hover:text-[var(--tx)] hover:bg-[var(--s2)] transition-colors duration-200 text-base cursor-pointer"
+              className="icon-btn"
             >
               <i className={`ti ${theme === "dark" ? "ti-sun" : "ti-moon"}`} />
             </button>
@@ -99,30 +95,27 @@ export default function Navbar() {
             {/* Auth */}
             {user ? (
               <div className="flex items-center gap-2">
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--bdr)] bg-[var(--s2)] hover:bg-[var(--s3)] transition-colors duration-200"
-                >
+                <Link href="/dashboard" className="av-pill">
                   {displayImage ? (
                     <Image
                       src={displayImage}
                       alt={displayName || "User"}
                       width={30}
                       height={30}
-                      className="rounded-full object-cover"
+                      className="rounded-full object-cover w-[30px] h-[30px]"
                     />
                   ) : (
-                    <div className="w-[30px] h-[30px] rounded-full bg-[var(--p)] text-white text-xs font-bold flex items-center justify-center">
+                    <div className="av-circle">
                       {initials(displayName || "U")}
                     </div>
                   )}
                   <span className="text-xs font-semibold text-[var(--tx)]">
-                    {(displayName || "User").split(" ")[0]}
+                    {(displayName || "User").split(" ")[0].toUpperCase()}
                   </span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500/10 text-red-500 hover:bg-red-500/20 transition-colors duration-200 cursor-pointer"
+                  className="btn btn-danger btn-sm"
                 >
                   <i className="ti ti-logout" aria-hidden="true" />
                   Logout
@@ -130,16 +123,10 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="flex gap-2">
-                <Link
-                  href="/login"
-                  className="px-4 py-1.5 rounded-lg text-sm font-semibold border border-[var(--bdr)] text-[var(--tx)] hover:bg-[var(--s2)] transition-colors duration-200"
-                >
+                <Link href="/login" className="btn btn-outline btn-sm">
                   Login
                 </Link>
-                <Link
-                  href="/register"
-                  className="px-4 py-1.5 rounded-lg text-sm font-semibold bg-[var(--p)] text-white hover:bg-[var(--p-dark)] transition-colors duration-200"
-                >
+                <Link href="/register" className="btn btn-primary btn-sm">
                   Register
                 </Link>
               </div>
@@ -167,10 +154,10 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setMenuOpen(false)}
-              className={`text-sm px-[14px] py-[10px] rounded-lg transition-colors duration-200 border-l-[3px] ${
+              className={`mobile-link text-sm px-[14px] py-[10px] rounded-lg transition-colors duration-200 border-l-[3px] ${
                 pathname === l.href
-                  ? "font-bold bg-[var(--p3)] border-[var(--p)] text-[var(--p)]"
-                  : "font-medium border-transparent text-[var(--tx)] hover:bg-[var(--s2)]"
+                  ? "mobile-link-active font-bold bg-[var(--p3)] border-[var(--p)] text-[var(--p)]"
+                  : "font-medium border-transparent text-[var(--tx)] hover:bg-[var(--bg3)]"
               }`}
             >
               {l.label}
@@ -184,14 +171,14 @@ export default function Navbar() {
               <Link
                 href="/login"
                 onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium px-[14px] py-[10px] rounded-lg text-[var(--tx)] hover:bg-[var(--s2)] transition-colors duration-200"
+                className="text-sm font-medium px-[14px] py-[10px] rounded-lg text-[var(--tx)] hover:bg-[var(--bg3)] transition-colors duration-200"
               >
                 Login
               </Link>
               <Link
                 href="/register"
                 onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium px-[14px] py-[10px] rounded-lg text-[var(--tx)] hover:bg-[var(--s2)] transition-colors duration-200"
+                className="text-sm font-medium px-[14px] py-[10px] rounded-lg text-[var(--tx)] hover:bg-[var(--bg3)] transition-colors duration-200"
               >
                 Register
               </Link>

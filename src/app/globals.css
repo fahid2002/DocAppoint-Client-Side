@@ -1,6 +1,4 @@
 @import "tailwindcss";
-/* @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap");
-@import url("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"); */
 
 /* ═══════════════════════════════════════════
    CSS VARIABLES — LIGHT THEME
@@ -10,6 +8,7 @@
   --p2: #0c447c;
   --p3: #e6f1fb;
   --p4: #042c53;
+  --p-dark: #0c447c;
   --acc: #1d9e75;
   --acc2: #0f6e56;
   --acc3: #9fe1cb;
@@ -24,12 +23,13 @@
   --tx2: #4a5568;
   --tx3: #8896a8;
   --bdr: rgba(24, 95, 165, 0.14);
+  --ft-bg: #042c53;
   --green-bg: #eaf3de;
   --green-tx: #3b6d11;
   --p-badge-bg: #dbeafe;
---p-badge-tx: #1d4ed8;
---green-badge-bg: #dcfce7;
---green-badge-tx: #15803d;
+  --p-badge-tx: #1d4ed8;
+  --green-badge-bg: #dcfce7;
+  --green-badge-tx: #15803d;
   --amber-bg: #faeeda;
   --amber-tx: #633806;
   --red: #e24b4a;
@@ -62,12 +62,13 @@
   --tx3: #5a6a7e;
   --bdr: rgba(90, 130, 200, 0.18);
   --p3: #0c447c;
+  --ft-bg: #060c14;
   --green-bg: rgba(8, 80, 65, 0.5);
   --green-tx: #9fe1cb;
   --p-badge-bg: rgba(24, 95, 165, 0.25);
---p-badge-tx: #7eb8f7;
---green-badge-bg: rgba(31, 158, 117, 0.2);
---green-badge-tx: #4ade80;
+  --p-badge-tx: #7eb8f7;
+  --green-badge-bg: rgba(31, 158, 117, 0.2);
+  --green-badge-tx: #4ade80;
   --amber-bg: #412402;
   --amber-tx: #fac775;
   --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.3);
@@ -246,7 +247,6 @@ img {
   border: 1.5px solid var(--bdr);
   background: transparent;
   color: var(--tx);
-  /* transition: all 0.2s; */
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   font-family: "DM Sans", sans-serif;
@@ -263,24 +263,14 @@ img {
   box-shadow: 0 4px 14px rgba(24, 95, 165, 0.28);
 }
 
-/* ✅ Fix: explicitly override .btn:hover for primary buttons */
-/* .btn-primary:hover {
-  background: var(--grad-btn);   
-  opacity: 0.92;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(24, 95, 165, 0.38);
-  color: #fff;
-} */
-
 .btn-primary:hover {
-  background: var(--grad-btn);       /* Keeps the original gradient base */
-  filter: brightness(1.15);          /* Makes the gradient pop and look glowing */
-  transform: translateY(-2px) scale(1.02); /* Slight lift and scale up */
-  box-shadow: 0 8px 22px rgba(24, 95, 165, 0.45); /* Stronger shadow drop */
+  background: var(--grad-btn);
+  filter: brightness(1.15);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 22px rgba(24, 95, 165, 0.45);
   color: #fff;
 }
 
-/* Adds a pressing down effect when clicked */
 .btn:active {
   transform: translateY(1px) scale(0.98);
 }
@@ -345,7 +335,7 @@ img {
 ═══════════════════════════════════════════ */
 .hero {
   background: var(--grad);
-  padding: 5rem 0 4rem;
+  padding: 5rem 1.5rem 4rem;
   position: relative;
   overflow: hidden;
 }
@@ -454,7 +444,7 @@ img {
    FOOTER
 ═══════════════════════════════════════════ */
 footer {
-  background: var(--p4);
+  background: var(--ft-bg);
   padding: 3.5rem 0 0;
 }
 
@@ -831,21 +821,12 @@ footer {
     overflow: hidden;
   }
 
-  @media (max-width: 380px) {
-  .nav-inner {
-    padding: 0 0.6rem;
-    gap: 0.3rem;
-  }
-}
-
-  /* shrink logo text on small screens */
   .logo-mark {
     width: 34px;
     height: 34px;
     font-size: 17px;
   }
 
-  /* hide avatar pill name text on mobile — show only avatar */
   .av-pill span {
     display: none;
   }
@@ -855,10 +836,16 @@ footer {
     border-radius: 50%;
   }
 
-  /* shrink logout button */
   .btn-danger.btn-sm {
     padding: 6px 10px;
     font-size: 11px;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav-inner {
+    padding: 0 0.6rem;
+    gap: 0.3rem;
   }
 }
 
@@ -891,12 +878,12 @@ footer {
    HERO CARD DARK MODE
 ═══════════════════════════════════════════ */
 .hero-card-desktop {
-  background: rgba(255,255,255,0.97);
+  background: rgba(255, 255, 255, 0.97);
 }
 
 .dark .hero-card-desktop {
   background: rgba(22, 27, 39, 0.95) !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
 }
 
 .hero-card-desktop .card-name { color: #0a0f1e; }
@@ -915,19 +902,19 @@ footer {
 .dark .hero-card-desktop .card-fee-small { color: #9aacbf; }
 
 .hero-card-desktop .card-slot-green { background: #eaf3de; color: #3b6d11; }
-.dark .hero-card-desktop .card-slot-green { background: rgba(8,80,65,0.5); color: #9fe1cb; }
+.dark .hero-card-desktop .card-slot-green { background: rgba(8, 80, 65, 0.5); color: #9fe1cb; }
 
 .hero-card-desktop .card-slot-blue { background: #e6f1fb; color: #0c447c; }
-.dark .hero-card-desktop .card-slot-blue { background: rgba(24,95,165,0.3); color: #b5d4f4; }
+.dark .hero-card-desktop .card-slot-blue { background: rgba(24, 95, 165, 0.3); color: #b5d4f4; }
 
 .hero-card-desktop .card-available { background: #eaf3de; color: #3b6d11; }
-.dark .hero-card-desktop .card-available { background: rgba(8,80,65,0.5); color: #9fe1cb; }
+.dark .hero-card-desktop .card-available { background: rgba(8, 80, 65, 0.5); color: #9fe1cb; }
 
-.hero-card-desktop .card-bottom { background: #f4f7fb; border: 1px solid rgba(0,0,0,0.06); }
-.dark .hero-card-desktop .card-bottom { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); }
+.hero-card-desktop .card-bottom { background: #f4f7fb; border: 1px solid rgba(0, 0, 0, 0.06); }
+.dark .hero-card-desktop .card-bottom { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); }
 
 .hero-card-desktop .card-bottom-icon { background: #e6f1fb; color: #185fa5; }
-.dark .hero-card-desktop .card-bottom-icon { background: rgba(24,95,165,0.2); color: #b5d4f4; }
+.dark .hero-card-desktop .card-bottom-icon { background: rgba(24, 95, 165, 0.2); color: #b5d4f4; }
 
 .hero-card-desktop .card-bottom-title { color: #0a0f1e; }
 .dark .hero-card-desktop .card-bottom-title { color: #e8edf5; }
@@ -935,11 +922,11 @@ footer {
 .hero-card-desktop .card-bottom-sub { color: #8896a8; }
 .dark .hero-card-desktop .card-bottom-sub { color: #9aacbf; }
 
-.hero-card-desktop .card-divider { border-bottom: 1px solid rgba(0,0,0,0.06); }
-.dark .hero-card-desktop .card-divider { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.hero-card-desktop .card-divider { border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+.dark .hero-card-desktop .card-divider { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 
 .hero-card-desktop .card-avatar { background: #e6f1fb; }
-.dark .hero-card-desktop .card-avatar { background: rgba(24,95,165,0.2); }
+.dark .hero-card-desktop .card-avatar { background: rgba(24, 95, 165, 0.2); }
 
 /* Mobile menu link visibility */
 .dark .mobile-link {
@@ -966,5 +953,18 @@ footer {
 }
 [data-theme="light"] .hero-search-input::placeholder {
   color: rgba(255, 255, 255, 0.75);
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-card-col {
+    display: none;
+  }
+}
+.placeholder-search::placeholder {
+  color: rgba(255, 255, 255, 0.5);
   opacity: 1;
 }
