@@ -7,11 +7,9 @@ export default function DoctorCard({ doc }) {
   const router = useRouter();
   const { data: session, isPending } = useSession();
 
-   console.log("session:", session, "isPending:", isPending); 
-
   const handleView = () => {
     if (isPending) return;
-    if (!session?.user) {
+    if (!session?.user?.id) {
       router.push("/login");
     } else {
       router.push(`/appointments/${doc.id}`);
@@ -21,7 +19,11 @@ export default function DoctorCard({ doc }) {
   const stars = "★".repeat(Math.round(doc.rating)) + "☆".repeat(5 - Math.round(doc.rating));
 
   return (
-    <div className="doc-card" onClick={handleView} style={{ height: "100%" }}>
+    <div
+      className="doc-card"
+      onClick={isPending ? undefined : handleView}
+      style={{ height: "100%", cursor: isPending ? "default" : "pointer" }}
+    >
       <div className="doc-img">
         <Image src={doc.img} alt={doc.name} width={120} height={155} style={{ objectFit: "cover", objectPosition: "top", borderRadius: "11px 11px 0 0", width: 120, height: 155 }} />
         <div style={{ position: "absolute", top: 10, right: 10, display: "flex", alignItems: "center", gap: 4, background: "rgba(234,243,222,0.92)", color: "#3B6D11", fontSize: 10, fontWeight: 700, padding: "3px 9px", borderRadius: 20, backdropFilter: "blur(6px)" }}>
