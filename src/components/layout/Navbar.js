@@ -15,7 +15,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
-  const { data: session } = useSession();
+  
+  // Destructure isPending to monitor background session verification
+  const { data: session, isPending } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [localProfile, setLocalProfile] = useState(() => {
@@ -53,7 +55,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Navbar ── */}
+      {/*  Navbar */}
       <nav className="navbar">
         <div className="nav-inner">
 
@@ -92,8 +94,14 @@ export default function Navbar() {
               <i className={`ti ${theme === "dark" ? "ti-sun" : "ti-moon"}`} />
             </button>
 
-            {/* Auth */}
-            {user ? (
+            {/* ── Auth State Condition Matrix ── */}
+            {isPending ? (
+              /* 1. Loading State Placeholder (Prevents Flashing Login/Logout) */
+              <div className="flex items-center justify-center w-[120px] h-[32px]">
+                <div className="animate-pulse w-full h-4/5 bg-[var(--bdr)] rounded-md opacity-60" style={{ minWidth: "80px" }} />
+              </div>
+            ) : user ? (
+              /* 2. Authenticated State */
               <div className="flex items-center gap-2">
                 <Link href="/dashboard" className="av-pill">
                   {displayImage ? (
@@ -122,6 +130,7 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
+              /* 3. Unauthenticated State */
               <div className="flex gap-2">
                 <Link href="/login" className="btn btn-outline btn-sm">
                   Login
@@ -166,7 +175,10 @@ export default function Navbar() {
 
           <hr className="border-[var(--bdr)] my-2" />
 
-          {!user && (
+          {/* Mobile Menu Auth State Synchronizer */}
+          {isPending ? (
+            <div className="h-[40px] w-1/2 bg-[var(--bg3)] rounded-md animate-pulse m-2" />
+          ) : !user ? (
             <>
               <Link
                 href="/login"
@@ -183,7 +195,7 @@ export default function Navbar() {
                 Register
               </Link>
             </>
-          )}
+          ) : null}
         </div>
       )}
     </>
