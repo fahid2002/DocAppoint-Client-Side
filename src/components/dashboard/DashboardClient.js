@@ -42,7 +42,7 @@ export default function DashboardClient() {
     if (!user) { router.push("/login?redirect=/dashboard"); return; }
     if (!jwtIssued.current && user.email) {
       jwtIssued.current = true;
-      authApi.getJwt(user.email).catch(() => console.error("JWT exchange failed."));
+      authApi.getJwt(user.email).catch((err) => console.error("JWT exchange failed:", err));
     }
   }, [isPending, user, router]);
 

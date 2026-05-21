@@ -2,13 +2,20 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/libs/auth-client";
+import { useState, useEffect } from "react"; // Added imports
 
 export default function DoctorCard({ doc }) {
   const router = useRouter();
   const { data: session, isPending } = useSession();
+  const [mounted, setMounted] = useState(false);
+
+  // Sync state to the browser after successful mounting
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleView = () => {
-    if (isPending) return;
+    if (isPending || !mounted) return;
     if (!session?.user?.id) {
       router.push("/login");
     } else {
@@ -18,11 +25,14 @@ export default function DoctorCard({ doc }) {
 
   const stars = "★".repeat(Math.round(doc.rating)) + "☆".repeat(5 - Math.round(doc.rating));
 
+  // Determine actual interactive states safely
+  const currentlyPending = !mounted || isPending;
+
   return (
     <div
       className="doc-card"
-      onClick={isPending ? undefined : handleView}
-      style={{ height: "100%", cursor: isPending ? "default" : "pointer" }}
+      onClick={currentlyPending ? undefined : handleView}
+      style={{ height: "100%", cursor: currentlyPending ? "default" : "pointer" }}
     >
       <div className="doc-img">
         <Image src={doc.img} alt={doc.name} width={120} height={155} style={{ objectFit: "cover", objectPosition: "top", borderRadius: "11px 11px 0 0", width: 120, height: 155 }} />
@@ -54,10 +64,10 @@ export default function DoctorCard({ doc }) {
           </div>
           <button
             className="btn btn-primary btn-sm"
-            disabled={isPending}
+            disabled={currentlyPending}
             onClick={(e) => { e.stopPropagation(); handleView(); }}
           >
-            {isPending ? "..." : "View Details"}
+            {currentlyPending ? "..." : "View Details"}
           </button>
         </div>
       </div>

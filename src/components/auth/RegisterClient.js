@@ -53,7 +53,7 @@ export default function RegisterClient() {
     const compressed = canvas.toDataURL("image/jpeg", 0.8);
     URL.revokeObjectURL(objectUrl);
 
-    setProfileForm(p => ({ ...p, photo: compressed }));
+setFormData(prev => ({ ...prev, photo: compressed }));
     setPhotoPreview(compressed);
   };
 
