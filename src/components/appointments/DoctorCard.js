@@ -18,72 +18,200 @@ export default function DoctorCard({ doc }) {
   const stars = "★".repeat(Math.round(doc.rating)) + "☆".repeat(5 - Math.round(doc.rating));
 
   return (
-    <div className="doc-card cursor-pointer h-full" onClick={handleView}>
-
+    <div
+      onClick={handleView}
+      style={{
+        background: "var(--card)",
+        border: "1px solid var(--card-bdr)",
+        borderRadius: "20px",
+        overflow: "hidden",
+        cursor: "pointer",
+        transition: "transform 0.28s, box-shadow 0.28s",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-5px)";
+        e.currentTarget.style.boxShadow = "var(--shadow-lg)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
+    >
       {/* ── Image block ── */}
-      <div className="doc-img relative">
+      <div
+        style={{
+          position: "relative",
+          height: "180px",
+          background: "linear-gradient(160deg, #0c447c, #085041)",
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "center",
+          overflow: "hidden",
+        }}
+      >
         <Image
           src={doc.img}
           alt={doc.name}
           width={120}
-          height={155}
-          className="object-cover object-top rounded-t-[11px] w-[120px] h-[155px]"
+          height={180}
+          style={{
+            objectFit: "cover",
+            objectPosition: "top",
+            width: "120px",
+            height: "180px",
+          }}
         />
 
         {/* Available badge */}
-        <div className="absolute top-[10px] right-[10px] flex items-center gap-1 bg-[rgba(234,243,222,0.92)] text-[#3B6D11] text-[10px] font-bold px-[9px] py-[3px] rounded-[20px] backdrop-blur-[6px]">
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            background: "rgba(234,243,222,0.92)",
+            color: "#3B6D11",
+            fontSize: 10,
+            fontWeight: 700,
+            padding: "3px 9px",
+            borderRadius: 20,
+            backdropFilter: "blur(6px)",
+          }}
+        >
           <div className="pulse" />
           Available
         </div>
 
         {/* Experience badge */}
-        <div className="absolute top-[10px] left-[10px] text-[10px] font-bold px-[9px] py-[3px] rounded-[5px] bg-[rgba(4,44,83,0.75)] text-[#B5D4F4] backdrop-blur-[6px]">
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            left: 10,
+            fontSize: 10,
+            fontWeight: 700,
+            padding: "3px 9px",
+            borderRadius: 5,
+            background: "rgba(4,44,83,0.75)",
+            color: "#B5D4F4",
+            backdropFilter: "blur(6px)",
+          }}
+        >
           {doc.exp}
         </div>
       </div>
 
       {/* ── Info block ── */}
-      <div className="p-4">
+      <div style={{ padding: "1rem", flex: 1, display: "flex", flexDirection: "column" }}>
 
         {/* Specialty */}
-        <div className="font-[Sora,sans-serif] text-[11px] font-bold text-(--p) uppercase tracking-[0.06em] mb-[3px]">
+        <div
+          style={{
+            fontFamily: "Sora, sans-serif",
+            fontSize: 11,
+            fontWeight: 700,
+            color: "var(--p)",
+            textTransform: "uppercase",
+            letterSpacing: "0.06em",
+            marginBottom: 3,
+          }}
+        >
           {doc.specialty}
         </div>
 
         {/* Name */}
-        <h3 className="font-[Sora,sans-serif] text-[15px] font-extrabold text-(--tx) mb-1">
+        <h3
+          style={{
+            fontFamily: "Sora, sans-serif",
+            fontSize: 15,
+            fontWeight: 800,
+            color: "var(--tx)",
+            marginBottom: 4,
+          }}
+        >
           {doc.name}
         </h3>
 
         {/* Stars */}
-        <div className="text-[#BA7517] text-xs mb-[7px]">
+        <div style={{ color: "#BA7517", fontSize: 12, marginBottom: 7 }}>
           {stars}{" "}
-          <span className="text-[11px] text-(--tx3)">
+          <span style={{ fontSize: 11, color: "var(--tx3)" }}>
             {doc.rating} ({doc.reviews} reviews)
           </span>
         </div>
 
         {/* Hospital */}
-        <div className="text-[11.5px] text-(--tx3) flex items-center gap-1 mb-[3px]">
-          <i className="ti ti-building-hospital text-xs" aria-hidden="true" />
+        <div
+          style={{
+            fontSize: 11.5,
+            color: "var(--tx3)",
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            marginBottom: 3,
+          }}
+        >
+          <i className="ti ti-building-hospital" style={{ fontSize: 12 }} aria-hidden="true" />
           {doc.hospital}
         </div>
 
         {/* Location */}
-        <div className="text-[11.5px] text-(--tx3) flex items-center gap-1 mb-[3px]">
-          <i className="ti ti-map-pin text-xs" aria-hidden="true" />
+        <div
+          style={{
+            fontSize: 11.5,
+            color: "var(--tx3)",
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            marginBottom: 3,
+          }}
+        >
+          <i className="ti ti-map-pin" style={{ fontSize: 12 }} aria-hidden="true" />
           {doc.location}
         </div>
 
         {/* Fee + button */}
-        <div className="flex justify-between items-center mt-[11px] pt-[11px] border-t border-(--bdr)">
-          <div className="font-[Sora,sans-serif] text-[18px] font-extrabold text-(--p)">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: "auto",
+            paddingTop: 11,
+            borderTop: "1px solid var(--bdr)",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "Sora, sans-serif",
+              fontSize: 18,
+              fontWeight: 800,
+              color: "var(--p)",
+            }}
+          >
             ৳{doc.fee}{" "}
-            <small className="text-[10px] text-(--tx3) font-normal">/visit</small>
+            <small style={{ fontSize: 10, color: "var(--tx3)", fontWeight: 400 }}>/visit</small>
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); handleView(); }}
-            className="px-3 py-1.5 rounded-lg bg-(--p) text-white text-xs font-semibold hover:bg-(--p-dark) transition-colors duration-200 cursor-pointer"
+            style={{
+              padding: "6px 14px",
+              borderRadius: 8,
+              background: "var(--p)",
+              color: "#fff",
+              fontSize: 12,
+              fontWeight: 600,
+              border: "none",
+              cursor: "pointer",
+              transition: "background 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--p-dark)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--p)")}
           >
             View Details
           </button>

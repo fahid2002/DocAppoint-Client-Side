@@ -13,47 +13,112 @@ export default function SpecialtySection() {
   };
 
   return (
-    <div className="bg-(--bg3) border-t border-(--bdr) border-b py-12">
-      <div className="max-w-[1200px] mx-auto px-6">
-
+    <div
+      style={{
+        background: "var(--bg3)",
+        borderTop: "1px solid var(--bdr)",
+        borderBottom: "1px solid var(--bdr)",
+        padding: "3rem 0",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          paddingLeft: "1.5rem",
+          paddingRight: "1.5rem",
+          boxSizing: "border-box",
+        }}
+      >
         {/* Header */}
-        <div className="flex justify-between items-end mb-[1.2rem]">
-          <div>
-            <div className="eyebrow">Browse by specialty</div>
-            <div className="sec-title">Find the right specialist</div>
-          </div>
+        <div style={{ marginBottom: "1.2rem" }}>
+          <div className="eyebrow">Browse by specialty</div>
+          <div className="sec-title">Find the right specialist</div>
         </div>
 
         {/* Specialty grid */}
-        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-[0.6rem] justify-center">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(8, 1fr)",
+            gap: "0.6rem",
+          }}
+        >
           {SPECIALTIES.map((s) => (
             <div
               key={s.label}
               onClick={() => handle(s.label)}
-              className={`spec-chip${active === s.label ? " on" : ""} w-full`}
+              style={{
+                background: active === s.label ? "var(--p)" : "var(--card)",
+                border: `1.5px solid ${active === s.label ? "var(--p)" : "var(--bdr)"}`,
+                borderRadius: "10px",
+                padding: "0.8rem 0.4rem",
+                textAlign: "center",
+                cursor: "pointer",
+                transition: "all 0.22s",
+                boxShadow: active === s.label ? "0 4px 14px rgba(24,95,165,0.3)" : "none",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
+              onMouseEnter={(e) => {
+                if (active !== s.label) {
+                  e.currentTarget.style.borderColor = "var(--p)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (active !== s.label) {
+                  e.currentTarget.style.borderColor = "var(--bdr)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
+                }
+              }}
             >
               {/* Icon circle */}
               <div
-                className={`w-[38px] h-[38px] rounded-[10px] flex items-center justify-center mx-auto mb-2 text-[17px] transition-all duration-[220ms] ${
-                  active === s.label
-                    ? "bg-white/20 text-white"
-                    : "bg-[rgba(24,95,165,0.25)] text-(--p)"
-                }`}
+                style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 0.5rem",
+                  fontSize: 17,
+                  transition: "all 0.22s",
+                  background: active === s.label ? "rgba(255,255,255,0.2)" : "rgba(24,95,165,0.1)",
+                  color: active === s.label ? "#ffffff" : "var(--p)",
+                }}
               >
                 <i className={`ti ${s.icon}`} aria-hidden="true" />
               </div>
 
               {/* Label */}
               <div
-                className={`font-[Sora,sans-serif] text-[10.5px] font-semibold transition-colors duration-[220ms] ${
-                  active === s.label ? "text-white" : "text-(--tx2)"
-                }`}
+                style={{
+                  fontFamily: "Sora, sans-serif",
+                  fontSize: "10.5px",
+                  fontWeight: 600,
+                  transition: "color 0.22s",
+                  color: active === s.label ? "#ffffff" : "var(--tx2)",
+                }}
               >
                 {s.label === "General" ? "General Physician" : s.label}
               </div>
             </div>
           ))}
         </div>
+
+        {/* Responsive override */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          @media (max-width: 768px) {
+            .specialty-grid { grid-template-columns: repeat(4, 1fr) !important; }
+          }
+          @media (max-width: 480px) {
+            .specialty-grid { grid-template-columns: repeat(4, 1fr) !important; }
+          }
+        `}} />
       </div>
     </div>
   );
