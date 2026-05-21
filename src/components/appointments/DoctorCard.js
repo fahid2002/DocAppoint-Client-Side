@@ -7,6 +7,8 @@ export default function DoctorCard({ doc }) {
   const router = useRouter();
   const { data: session, isPending } = useSession();
 
+   console.log("session:", session, "isPending:", isPending); 
+
   const handleView = () => {
     if (isPending) return;
     if (!session?.user) {
