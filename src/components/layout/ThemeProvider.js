@@ -11,9 +11,9 @@ export default function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const saved = localStorage.getItem("da_theme") || "light";
-    setTheme(saved);
-    document.documentElement.classList.toggle("dark", saved === "dark");
+    // Read what the fast head script setup injected onto the document tag root
+    const isCurrentlyDark = document.documentElement.classList.contains("dark");
+    setTheme(isCurrentlyDark ? "dark" : "light");
   }, []);
 
   const toggleTheme = () => {
