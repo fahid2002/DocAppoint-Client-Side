@@ -5,9 +5,10 @@ import { useSession } from "@/libs/auth-client";
 
 export default function DoctorCard({ doc }) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
   const handleView = () => {
+    if (isPending) return;
     if (!session?.user) {
       router.push("/login");
     } else {
@@ -47,8 +48,12 @@ export default function DoctorCard({ doc }) {
           <div style={{ fontFamily: "Sora, sans-serif", fontSize: 18, fontWeight: 800, color: "var(--p)" }}>
             ৳{doc.fee} <small style={{ fontSize: 10, color: "var(--tx3)", fontWeight: 400 }}>/visit</small>
           </div>
-          <button className="btn btn-primary btn-sm" onClick={(e) => { e.stopPropagation(); handleView(); }}>
-            View Details
+          <button
+            className="btn btn-primary btn-sm"
+            disabled={isPending}
+            onClick={(e) => { e.stopPropagation(); handleView(); }}
+          >
+            {isPending ? "..." : "View Details"}
           </button>
         </div>
       </div>
