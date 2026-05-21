@@ -1,9 +1,9 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-export const metadata = {
-  title: "Help Center",
-  description: "Get help with DocAppoint.",
+export const metadata = { 
+  title: "Help Center", 
+  description: "Get help with DocAppoint." 
 };
 
 const faqs = [
@@ -21,58 +21,33 @@ export default function HelpCenterPage() {
   return (
     <>
       <Navbar />
-      <main className="page-enter pt-[66px] min-h-screen">
-
-        {/* Hero Banner */}
-        <div className="py-14" style={{ background: "var(--grad)" }}>
-          <div className="max-w-[800px] mx-auto px-6">
+      <main style={{ paddingTop: 66, minHeight: "100vh" }} className="page-enter">
+        <div style={{ background: "var(--grad)", padding: "3.5rem 0 2.5rem" }}>
+          <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 1.5rem" }}>
             <div className="eyebrow" style={{ color: "var(--acc3)" }}>Support</div>
-            <h1 className="font-['Sora'] text-[clamp(24px,3vw,36px)] font-black text-white">
-              Help Center
-            </h1>
-            <p className="text-[15px] mt-2" style={{ color: "rgba(255,255,255,0.7)" }}>
-              Find answers to the most common questions about DocAppoint.
-            </p>
+            <h1 style={{ fontFamily: "Sora, sans-serif", fontSize: "clamp(24px,3vw,36px)", fontWeight: 900, color: "#fff" }}>Help Center</h1>
+            <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 15, marginTop: 8 }}>Find answers to the most common questions about DocAppoint.</p>
           </div>
         </div>
-
-        {/* FAQ Section */}
-        <div className="max-w-[800px] mx-auto px-6 py-12">
-          <h2 className="font-['Sora'] text-[20px] font-extrabold mb-6" style={{ color: "var(--tx)" }}>
-            Frequently Asked Questions
-          </h2>
-
+        <div style={{ maxWidth: 800, margin: "0 auto", padding: "3rem 1.5rem" }}>
+          <h2 style={{ fontFamily: "Sora, sans-serif", fontSize: 20, fontWeight: 800, color: "var(--tx)", marginBottom: "1.5rem" }}>Frequently Asked Questions</h2>
           {faqs.map((f, i) => (
-            <div key={i} className="rounded-[var(--r-lg)] p-5 mb-3"
-              style={{ background: "var(--card)", border: "1px solid var(--card-bdr)" }}>
-              <div className="flex items-start gap-3">
-                <i className="ti ti-help-circle text-[18px] shrink-0 mt-0.5" style={{ color: "var(--p)" }} />
+            <div key={i} style={{ background: "var(--card)", border: "1px solid var(--card-bdr)", borderRadius: "var(--r-lg)", padding: "1.3rem 1.5rem", marginBottom: "0.8rem" }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                <i className="ti ti-help-circle" style={{ fontSize: 18, color: "var(--p)", flexShrink: 0, marginTop: 2 }} />
                 <div>
-                  <h3 className="font-['Sora'] text-[15px] font-bold mb-2" style={{ color: "var(--tx)" }}>
-                    {f.q}
-                  </h3>
-                  <p className="text-[13.5px] leading-[1.7]" style={{ color: "var(--tx2)" }}>
-                    {f.a}
-                  </p>
+                  <h3 style={{ fontFamily: "Sora, sans-serif", fontSize: 15, fontWeight: 700, color: "var(--tx)", marginBottom: 8 }}>{f.q}</h3>
+                  <p style={{ fontSize: 13.5, color: "var(--tx2)", lineHeight: 1.7 }}>{f.a}</p>
                 </div>
               </div>
             </div>
           ))}
-
-          {/* Still need help */}
-          <div className="rounded-[var(--r-lg)] p-6 mt-8 text-center" style={{ background: "var(--p3)" }}>
-            <div className="font-['Sora'] text-[16px] font-bold mb-2" style={{ color: "var(--p)" }}>
-              Still need help?
-            </div>
-            <p className="text-[13.5px] mb-4" style={{ color: "var(--tx2)" }}>
-              Our support team is here to help you. Send us a message and we&apos;ll get back to you within 24 hours.
-            </p>
-            <a href="mailto:support@docappoint.com" className="btn btn-primary btn-sm">
-              <i className="ti ti-mail" />support@docappoint.com
-            </a>
+          <div style={{ background: "var(--p3)", borderRadius: "var(--r-lg)", padding: "1.5rem", marginTop: "2rem", textAlign: "center" }}>
+            <div style={{ fontFamily: "Sora, sans-serif", fontSize: 16, fontWeight: 700, color: "var(--p)", marginBottom: 8 }}>Still need help?</div>
+            <p style={{ fontSize: 13.5, color: "var(--tx2)", marginBottom: "1rem" }}>Our support team is here to help you. Send us a message and we&apos;ll get back to you within 24 hours.</p>
+            <a href="mailto:support@docappoint.com" className="btn btn-primary btn-sm"><i className="ti ti-mail" />support@docappoint.com</a>
           </div>
         </div>
-
       </main>
       <Footer />
     </>
