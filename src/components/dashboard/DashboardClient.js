@@ -93,19 +93,39 @@ export default function DashboardClient() {
   };
 
   const handlePhotoFile = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setPhotoName(file.name);
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result === "string") {
-        setProfileForm(p => ({ ...p, photo: result }));
-        setPhotoPreview(result);
-      }
-    };
-    reader.readAsDataURL(file);
+  const file = e.target.files?.[0];
+  if (!file) return;
+  setPhotoName(file.name);
+
+  const img = new window.Image();
+  const objectUrl = URL.createObjectURL(file);
+
+  img.onload = () => {
+    // Resize to max 400x400 — plenty for a profile photo
+    const MAX = 400;
+    let { width, height } = img;
+    if (width > height) {
+      if (width > MAX) { height = Math.round(height * MAX / width); width = MAX; }
+    } else {
+      if (height > MAX) { width = Math.round(width * MAX / height); height = MAX; }
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Compress to JPEG at 80% quality — drastically reduces size
+    const compressed = canvas.toDataURL("image/jpeg", 0.8);
+    URL.revokeObjectURL(objectUrl);
+
+    setProfileForm(p => ({ ...p, photo: compressed }));
+    setPhotoPreview(compressed);
   };
+
+  img.src = objectUrl;
+};
 
   const handleProfileUpdate = async () => {
     if (!profileForm.name.trim()) { toast.error("Name cannot be empty."); return; }
