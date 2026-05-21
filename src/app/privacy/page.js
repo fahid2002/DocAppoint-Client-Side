@@ -1,9 +1,9 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-export const metadata = {
-  title: "Privacy Policy",
-  description: "DocAppoint privacy policy.",
+export const metadata = { 
+  title: "Privacy Policy", 
+  description: "DocAppoint privacy policy." 
 };
 
 const sections = [
@@ -20,35 +20,22 @@ export default function PrivacyPage() {
   return (
     <>
       <Navbar />
-      <main className="page-enter pt-[66px] min-h-screen">
-
-        {/* Hero Banner */}
-        <div className="py-14" style={{ background: "var(--grad)" }}>
-          <div className="max-w-[800px] mx-auto px-6">
+      <main style={{ paddingTop: 66, minHeight: "100vh" }} className="page-enter">
+        <div style={{ background: "var(--grad)", padding: "3.5rem 0 2.5rem" }}>
+          <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 1.5rem" }}>
             <div className="eyebrow" style={{ color: "var(--acc3)" }}>Legal</div>
-            <h1 className="font-['Sora'] text-[clamp(24px,3vw,36px)] font-black text-white">
-              Privacy Policy
-            </h1>
-            <p className="text-[13px] mt-2" style={{ color: "rgba(255,255,255,0.6)" }}>
-              Last updated: May 2026
-            </p>
+            <h1 style={{ fontFamily: "Sora, sans-serif", fontSize: "clamp(24px,3vw,36px)", fontWeight: 900, color: "#fff" }}>Privacy Policy</h1>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 13, marginTop: 8 }}>Last updated: May 2026</p>
           </div>
         </div>
-
-        {/* Content */}
-        <div className="max-w-[800px] mx-auto px-6 py-12">
+        <div style={{ maxWidth: 800, margin: "0 auto", padding: "3rem 1.5rem" }}>
           {sections.map(s => (
-            <div key={s.title} className="mb-8">
-              <h2 className="font-['Sora'] text-[17px] font-bold mb-2" style={{ color: "var(--tx)" }}>
-                {s.title}
-              </h2>
-              <p className="text-[14.5px] leading-[1.75]" style={{ color: "var(--tx2)" }}>
-                {s.text}
-              </p>
+            <div key={s.title} style={{ marginBottom: "2rem" }}>
+              <h2 style={{ fontFamily: "Sora, sans-serif", fontSize: 17, fontWeight: 700, color: "var(--tx)", marginBottom: "0.6rem" }}>{s.title}</h2>
+              <p style={{ fontSize: 14.5, color: "var(--tx2)", lineHeight: 1.75 }}>{s.text}</p>
             </div>
           ))}
         </div>
-
       </main>
       <Footer />
     </>
