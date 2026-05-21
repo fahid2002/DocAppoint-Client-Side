@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 
@@ -8,6 +9,7 @@ export default function Footer() {
   const [contactOpen, setContactOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const formRef = useRef(null);
+  const router = useRouter();
 
   const handleContact = async (e) => {
     e.preventDefault();
@@ -26,6 +28,18 @@ export default function Footer() {
       toast.error("Failed to send message. Please try again.");
     } finally {
       setSending(false);
+    }
+  };
+
+  const handleSpecialtyClick = (e, targetHref) => {
+    e.preventDefault();
+    
+    if (window.location.pathname === "/appointments") {
+      // Force a clean browser window load to completely reconstruct your useSearchParams() hooks
+      window.location.href = targetHref;
+    } else {
+      // If we are on the home page or dashboard, soft routing works perfectly
+      router.push(targetHref);
     }
   };
 
@@ -195,6 +209,7 @@ export default function Footer() {
                 <Link
                   key={l.label}
                   href={l.href}
+                  onClick={(e) => handleSpecialtyClick(e, l.href)} // 🟢 Custom handler connection
                   style={{
                     display: "block",
                     fontSize: 12.5,
