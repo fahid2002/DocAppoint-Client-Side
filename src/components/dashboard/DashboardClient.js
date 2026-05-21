@@ -140,7 +140,7 @@ export default function DashboardClient() {
   return (
 <div style={{ display: "flex", minHeight: "calc(100vh - 66px)", paddingTop: "1rem" }} className="dash-layout-resp">
       {/* Sidebar */}
-      <div className="sidebar" style={{ paddingTop: "2.5rem" }}>
+      <div className="sidebar" style={{ paddingTop: "3rem" }}>
         <div style={{ textAlign: "center", paddingBottom: "1.1rem", marginBottom: "0.9rem", borderBottom: "1px solid var(--bdr)" }}>
           <div style={{ width: 60, height: 60, borderRadius: "50%", background: "var(--grad-acc)", padding: 3, margin: "0 auto 0.65rem" }}>
             <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "var(--bg3)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Sora, sans-serif", fontSize: 18, fontWeight: 800, color: "var(--p)", overflow: "hidden" }}>
@@ -161,7 +161,7 @@ export default function DashboardClient() {
       </div>
 
       {/* Main */}
-      <div style={{ flex: 1, padding: "1.8rem 2rem", background: "var(--bg)", minWidth: 0, overflowAuto: "auto" }}>
+<div style={{ flex: 1, padding: "1.8rem 2rem", paddingTop: "3rem", background: "var(--bg)", minWidth: 0, overflowAuto: "auto" }}>
         {tab === "bookings" && (
           <div>
             <h2 style={{ fontFamily: "Sora, sans-serif", fontSize: 20, fontWeight: 800, color: "var(--tx)", marginBottom: "1.2rem" }}>My Bookings</h2>
