@@ -138,7 +138,7 @@ export default function DashboardClient() {
   const memberSince = new Date(user.createdAt || Date.now()).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
   return (
-<div style={{ display: "flex", minHeight: "calc(100vh - 66px)", paddingTop: "1rem" }} className="dash-layout-resp">
+<div style={{ display: "flex", minHeight: "calc(100vh - 66px)", paddingTop: "66px" }} className="dash-layout-resp">
       {/* Sidebar */}
       <div className="sidebar" style={{ paddingTop: "3rem" }}>
         <div style={{ textAlign: "center", paddingBottom: "1.1rem", marginBottom: "0.9rem", borderBottom: "1px solid var(--bdr)" }}>
