@@ -53,68 +53,125 @@ export default function Footer() {
     ],
   };
 
-  const linkClass =
-    "block text-[12.5px] text-white/45 mb-[0.45rem] transition-colors duration-200 hover:text-white cursor-pointer bg-transparent border-none p-0 font-[inherit] text-left";
-
-  const socialClass =
-    "w-8 h-8 rounded-lg flex items-center justify-center text-white/50 border border-white/10 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-200 text-sm";
-
   return (
     <>
-      {/* ── Footer ── */}
-      <footer className="bg-(--ft-bg) pt-14 pb-0">
-        <div className="max-w-[1200px] mx-auto px-6">
-
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr] gap-10 mb-10">
-
+      <footer>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 1.5rem" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1.8fr 1fr 1fr 1fr",
+              gap: "2.5rem",
+              marginBottom: "2.5rem",
+            }}
+            className="footer-grid"
+          >
             {/* Brand column */}
             <div>
-              <div className="flex items-center gap-2.5 mb-[0.9rem]">
-                <div className="w-9 h-9 rounded-[9px] bg-gradient-to-br from-(--p) to-(--acc) flex items-center justify-center text-[17px] text-white">
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "0.9rem" }}>
+                <div
+                  style={{
+                    width: 36,
+                    height: 36,
+                    background: "var(--grad-acc)",
+                    borderRadius: 9,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 17,
+                    color: "#fff",
+                  }}
+                >
                   <i className="ti ti-stethoscope" aria-hidden="true" />
                 </div>
-                <span className="font-[Sora,sans-serif] text-[18px] font-extrabold text-white">
-                  Doc<span className="text-(--acc3)">Appoint</span>
+                <span
+                  style={{
+                    fontFamily: "Sora, sans-serif",
+                    fontSize: 18,
+                    fontWeight: 800,
+                    color: "#fff",
+                  }}
+                >
+                  Doc<span style={{ color: "var(--acc3)" }}>Appoint</span>
                 </span>
               </div>
-              <p className="text-[12.5px] text-white/45 leading-[1.65] mb-[1.1rem] max-w-55">
+              <p
+                style={{
+                  fontSize: 12.5,
+                  color: "rgba(255,255,255,0.45)",
+                  lineHeight: 1.65,
+                  marginBottom: "1.1rem",
+                  maxWidth: 220,
+                }}
+              >
                 Bangladesh&apos;s most trusted platform for finding and booking verified specialist doctors.
                 Fast, secure, and completely patient-first — available 24/7.
               </p>
-
-              {/* Social icons — hardcoded to avoid JSX parsing issues */}
-              <div className="flex gap-[7px]">
-                <a href="https://x.com/fh_ifty" target="_blank" rel="noopener noreferrer" className={socialClass}>
-                  <i className="ti ti-brand-x" aria-hidden="true" />
-                </a>
-                <a href="https://www.facebook.com/fh.ifty.1" target="_blank" rel="noopener noreferrer" className={socialClass}>
-                  <i className="ti ti-brand-facebook" aria-hidden="true" />
-                </a>
-                <a href="https://www.instagram.com/fahidhasankhanifty/" target="_blank" rel="noopener noreferrer" className={socialClass}>
-                  <i className="ti ti-brand-instagram" aria-hidden="true" />
-                </a>
-                <a href="https://www.linkedin.com/in/fahid-hasan-280425382/" target="_blank" rel="noopener noreferrer" className={socialClass}>
-                  <i className="ti ti-brand-linkedin" aria-hidden="true" />
-                </a>
-                <a href="https://github.com/fahid2002" target="_blank" rel="noopener noreferrer" className={socialClass}>
-                  <i className="ti ti-brand-github" aria-hidden="true" />
-                </a>
+              <div style={{ display: "flex", gap: 7 }}>
+                {[
+                  { icon: "ti-brand-x", href: "https://x.com/fh_ifty" },
+                  { icon: "ti-brand-facebook", href: "https://www.facebook.com/fh.ifty.1" },
+                  { icon: "ti-brand-instagram", href: "https://www.instagram.com/fahidhasankhanifty/" },
+                  { icon: "ti-brand-linkedin", href: "https://www.linkedin.com/in/fahid-hasan-280425382/" },
+                  { icon: "ti-brand-github", href: "https://github.com/fahid2002" },
+                ].map((s) => (
+                  <a key={s.icon} href={s.href} target="_blank" rel="noopener noreferrer" className="soc-ic">
+                    <i className={`ti ${s.icon}`} aria-hidden="true" />
+                  </a>
+                ))}
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-[Sora,sans-serif] text-[13px] font-bold text-white mb-[0.9rem]">
+              <h4
+                style={{
+                  fontFamily: "Sora, sans-serif",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#fff",
+                  marginBottom: "0.9rem",
+                }}
+              >
                 Quick links
               </h4>
               {footerLinks.quick.map((l) =>
                 l.href ? (
-                  <Link key={l.label} href={l.href} className={linkClass}>
+                  <Link
+                    key={l.label}
+                    href={l.href}
+                    style={{
+                      display: "block",
+                      fontSize: 12.5,
+                      color: "rgba(255,255,255,0.45)",
+                      marginBottom: "0.45rem",
+                      cursor: "pointer",
+                      transition: "color 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  >
                     {l.label}
                   </Link>
                 ) : (
-                  <button key={l.label} onClick={l.onClick} className={linkClass}>
+                  <button
+                    key={l.label}
+                    onClick={l.onClick}
+                    style={{
+                      display: "block",
+                      fontSize: 12.5,
+                      color: "rgba(255,255,255,0.45)",
+                      marginBottom: "0.45rem",
+                      cursor: "pointer",
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      fontFamily: "inherit",
+                      transition: "color 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  >
                     {l.label}
                   </button>
                 )
@@ -123,11 +180,31 @@ export default function Footer() {
 
             {/* Specialties */}
             <div>
-              <h4 className="font-[Sora,sans-serif] text-[13px] font-bold text-white mb-[0.9rem]">
+              <h4
+                style={{
+                  fontFamily: "Sora, sans-serif",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#fff",
+                  marginBottom: "0.9rem",
+                }}
+              >
                 Specialties
               </h4>
               {footerLinks.specialties.map((l) => (
-                <Link key={l.label} href={l.href} className={linkClass}>
+                <Link
+                  key={l.label}
+                  href={l.href}
+                  style={{
+                    display: "block",
+                    fontSize: 12.5,
+                    color: "rgba(255,255,255,0.45)",
+                    marginBottom: "0.45rem",
+                    transition: "color 0.2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                >
                   {l.label}
                 </Link>
               ))}
@@ -135,16 +212,53 @@ export default function Footer() {
 
             {/* Legal & Support */}
             <div>
-              <h4 className="font-[Sora,sans-serif] text-[13px] font-bold text-white mb-[0.9rem]">
+              <h4
+                style={{
+                  fontFamily: "Sora, sans-serif",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#fff",
+                  marginBottom: "0.9rem",
+                }}
+              >
                 Legal &amp; support
               </h4>
               {footerLinks.legal.map((l) =>
                 l.href ? (
-                  <Link key={l.label} href={l.href} className={linkClass}>
+                  <Link
+                    key={l.label}
+                    href={l.href}
+                    style={{
+                      display: "block",
+                      fontSize: 12.5,
+                      color: "rgba(255,255,255,0.45)",
+                      marginBottom: "0.45rem",
+                      transition: "color 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  >
                     {l.label}
                   </Link>
                 ) : (
-                  <button key={l.label} onClick={l.onClick} className={linkClass}>
+                  <button
+                    key={l.label}
+                    onClick={l.onClick}
+                    style={{
+                      display: "block",
+                      fontSize: 12.5,
+                      color: "rgba(255,255,255,0.45)",
+                      marginBottom: "0.45rem",
+                      cursor: "pointer",
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      fontFamily: "inherit",
+                      transition: "color 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  >
                     {l.label}
                   </button>
                 )
@@ -153,11 +267,21 @@ export default function Footer() {
           </div>
 
           {/* Bottom bar */}
-          <div className="border-t border-white/[0.07] py-[1.2rem] flex flex-wrap justify-between items-center gap-2">
-            <div className="text-[11.5px] text-white/30">
-              © 2026 DocAppoint — Designed &amp; developed by Fahid Hasan Khan. All rights reserved.
+          <div
+            style={{
+              borderTop: "1px solid rgba(255,255,255,0.07)",
+              padding: "1.2rem 0",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "0.5rem",
+            }}
+          >
+            <div style={{ fontSize: 11.5, color: "rgba(255,255,255,0.3)" }}>
+              © 2026 DocAppoint — Designed & developed by Fahid Hasan Khan. All rights reserved.
             </div>
-            <div className="flex gap-[1.2rem]">
+            <div style={{ display: "flex", gap: "1.2rem" }}>
               {[
                 { label: "Terms & conditions", href: "/terms" },
                 { label: "Privacy policy", href: "/privacy" },
@@ -166,7 +290,13 @@ export default function Footer() {
                 <Link
                   key={l.label}
                   href={l.href}
-                  className="text-[11.5px] text-white/35 hover:text-white/80 transition-colors duration-200"
+                  style={{
+                    fontSize: 11.5,
+                    color: "rgba(255,255,255,0.35)",
+                    transition: "color 0.2s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.8)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.35)")}
                 >
                   {l.label}
                 </Link>
@@ -176,72 +306,94 @@ export default function Footer() {
         </div>
       </footer>
 
-      {/* ── Contact Modal ── */}
+      {/* Contact Us Modal */}
       {contactOpen && (
         <div
-          className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+          className="modal-bg"
           onClick={(e) => e.target === e.currentTarget && setContactOpen(false)}
         >
-          <div className="bg-(--bg) border border-(--bdr) rounded-2xl p-7 w-full max-w-[460px] shadow-2xl">
-
-            {/* Modal header */}
-            <div className="flex justify-between items-center mb-[1.3rem]">
-              <h3 className="font-[Sora,sans-serif] text-[18px] font-extrabold text-(--tx) flex items-center gap-2">
-                <i className="ti ti-mail text-(--p) text-[17px]" />
+          <div className="modal">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "1.3rem",
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: "Sora, sans-serif",
+                  fontSize: 18,
+                  fontWeight: 800,
+                  color: "var(--tx)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                <i className="ti ti-mail" style={{ color: "var(--p)", fontSize: 17 }} />
                 Contact Us
               </h3>
               <button
                 onClick={() => setContactOpen(false)}
-                className="w-8 h-8 rounded-lg border-[1.5px] border-(--bdr) bg-transparent flex items-center justify-center text-(--tx-2) hover:text-(--tx) hover:bg-(--s2) transition-colors duration-200 cursor-pointer text-base"
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: "var(--r-md)",
+                  border: "1.5px solid var(--bdr)",
+                  background: "transparent",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--tx3)",
+                  fontSize: 16,
+                }}
               >
                 <i className="ti ti-x" />
               </button>
             </div>
-
-            {/* Form */}
-            <form ref={formRef} onSubmit={handleContact} className="flex flex-col gap-[0.85rem]">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-(--tx-2)">Your Name</label>
-                <input
-                  name="from_name"
-                  required
-                  placeholder="Fahid Hasan"
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full"
-                />
+            <form ref={formRef} onSubmit={handleContact} style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+              <div className="auth-field">
+                <label>Your Name</label>
+                <input name="from_name" required placeholder="Fahid Hasan" />
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-(--tx-2)">Email Address</label>
-                <input
-                  name="from_email"
-                  type="email"
-                  required
-                  placeholder="fahid@gmail.com"
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full"
-                />
+              <div className="auth-field">
+                <label>Email Address</label>
+                <input name="from_email" type="email" required placeholder="fahid@gmail.com" />
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-(--tx-2)">Subject</label>
-                <input
-                  name="subject"
-                  required
-                  placeholder="How can we help?"
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full"
-                />
+              <div className="auth-field">
+                <label>Subject</label>
+                <input name="subject" required placeholder="How can we help?" />
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-(--tx-2)">Message</label>
+              <div className="auth-field">
+                <label>Message</label>
                 <textarea
                   name="message"
                   required
                   rows={4}
                   placeholder="Write your message here..."
-                  className="text-[13.5px] px-[13px] py-[11px] rounded-lg border-[1.5px] border-(--bdr) bg-(--bg3) text-(--tx) outline-none focus:border-(--p) transition-colors duration-200 w-full resize-vertical font-[DM_Sans,sans-serif]"
+                  style={{
+                    fontSize: 13.5,
+                    padding: "11px 13px",
+                    borderRadius: "var(--r-md)",
+                    border: "1.5px solid var(--bdr)",
+                    background: "var(--bg3)",
+                    color: "var(--tx)",
+                    transition: "border 0.2s, background 0.2s",
+                    outline: "none",
+                    width: "100%",
+                    resize: "vertical",
+                    fontFamily: "DM Sans, sans-serif",
+                  }}
                 />
               </div>
               <button
                 type="submit"
                 disabled={sending}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold bg-(--p) text-white hover:bg-(--p-dark) disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 mt-1 cursor-pointer"
+                className="btn btn-primary"
+                style={{ width: "100%", padding: "12px", fontSize: 14, marginTop: "0.3rem" }}
               >
                 <i className="ti ti-send" />
                 {sending ? "Sending..." : "Send Message"}

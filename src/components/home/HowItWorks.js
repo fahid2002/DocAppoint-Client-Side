@@ -1,56 +1,34 @@
 "use client";
-
-const steps = [
-  { n: 1, icon: "ti-search",   cls: "ico-blue",  title: "Find a doctor", desc: "Search by specialty, location, or name. Read real patient reviews to make an informed choice." },
-  { n: 2, icon: "ti-calendar", cls: "ico-green", title: "Book a slot",    desc: "Choose a convenient date and time. Fill in your details and confirm in seconds." },
-  { n: 3, icon: "ti-heart",    cls: "ico-pink",  title: "Get treated",   desc: "Visit the clinic and receive expert, personalized care from your chosen specialist." },
-];
-
-const iconStyles = {
-  "ico-blue":  { bg: "bg-(--p3)",         text: "text-(--p)" },
-  "ico-green": { bg: "bg-(--green-bg)",   text: "text-[#3B6D11]" },
-  "ico-pink":  { bg: "bg-[#FBEAF0]",      text: "text-[#993556]" },
-};
-
 export default function HowItWorks() {
+  const steps = [
+    { n: 1, icon: "ti-search", cls: "ico-blue", title: "Find a doctor", desc: "Search by specialty, location, or name. Read real patient reviews to make an informed choice." },
+    { n: 2, icon: "ti-calendar", cls: "ico-green", title: "Book a slot", desc: "Choose a convenient date and time. Fill in your details and confirm in seconds." },
+    { n: 3, icon: "ti-heart", cls: "ico-pink", title: "Get treated", desc: "Visit the clinic and receive expert, personalized care from your chosen specialist." },
+  ];
   return (
-    <div className="bg-(--bg3) border-t border-(--bdr) border-b py-12">
-      <div className="max-w-[1200px] mx-auto px-6">
-
-        {/* Header */}
-        <div className="text-center mb-[1.8rem]">
-          <div className="eyebrow text-center">Simple process</div>
-          <div className="sec-title text-2xl">How it works</div>
+    <div style={{ background: "var(--bg3)", borderTop: "1px solid var(--bdr)", borderBottom: "1px solid var(--bdr)", padding: "3rem 0" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 1.5rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "1.8rem" }}>
+          <div className="eyebrow" style={{ textAlign: "center" }}>Simple process</div>
+          <div className="sec-title" style={{ fontSize: 24 }}>How it works</div>
         </div>
-
-        {/* Steps grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[1.2rem]">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1.2rem" }} className="hiw-resp">
           {steps.map((s) => (
-            <div
-              key={s.n}
-              className="bg-(--card) border border-(--card-bdr) rounded-xl p-6 text-center transition-transform duration-[220ms] hover:-translate-y-[3px]"
+            <div key={s.n} style={{ background: "var(--card)", border: "1px solid var(--card-bdr)", borderRadius: "var(--r-lg)", padding: "1.5rem", textAlign: "center", transition: "transform 0.22s" }}
+              onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-3px)")}
+              onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}
             >
-              {/* Step number */}
-              <div className="w-6 h-6 rounded-full bg-(--p) text-white text-[11px] font-extrabold flex items-center justify-center mx-auto mb-[0.7rem] font-[Sora,sans-serif]">
-                {s.n}
-              </div>
-
-              {/* Icon */}
-              <div className={`w-[58px] h-[58px] rounded-xl flex items-center justify-center mx-auto mb-[0.9rem] text-[25px] ${iconStyles[s.cls].bg} ${iconStyles[s.cls].text}`}>
+              <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--p)", color: "#fff", fontSize: 11, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 0.7rem", fontFamily: "Sora, sans-serif" }}>{s.n}</div>
+              <div style={{ width: 58, height: 58, borderRadius: "var(--r-lg)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 0.9rem", fontSize: 25, background: s.cls === "ico-blue" ? "var(--p3)" : s.cls === "ico-green" ? "var(--green-bg)" : "#FBEAF0", color: s.cls === "ico-blue" ? "var(--p)" : s.cls === "ico-green" ? "#3B6D11" : "#993556" }}>
                 <i className={`ti ${s.icon}`} aria-hidden="true" />
               </div>
-
-              {/* Text */}
-              <h3 className="font-[Sora,sans-serif] text-sm font-bold text-(--tx) mb-[5px]">
-                {s.title}
-              </h3>
-              <p className="text-[13px] text-(--tx2) leading-[1.55]">
-                {s.desc}
-              </p>
+              <h3 style={{ fontFamily: "Sora, sans-serif", fontSize: 14, fontWeight: 700, color: "var(--tx)", marginBottom: 5 }}>{s.title}</h3>
+              <p style={{ fontSize: 13, color: "var(--tx2)", lineHeight: 1.55 }}>{s.desc}</p>
             </div>
           ))}
         </div>
       </div>
+      <style>{`@media(max-width:900px){.hiw-resp{grid-template-columns:1fr!important;}}`}</style>
     </div>
   );
 }

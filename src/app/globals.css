@@ -981,3 +981,39 @@ footer {
 .view-all-link:hover {
   text-decoration: underline;
 }
+/* ═══════════════════════════════════════════
+   ADD THIS BLOCK near the top of globals.css
+   RIGHT AFTER @import "tailwindcss";
+   This registers CSS vars as Tailwind utility classes
+═══════════════════════════════════════════ */
+
+@theme {
+  /* ── Colors (used as bg-p, text-acc3, etc.) ── */
+  --color-p:    #185fa5;
+  --color-p2:   #0c447c;
+  --color-p3:   #e6f1fb;
+  --color-p4:   #042c53;
+  --color-acc:  #1d9e75;
+  --color-acc2: #0f6e56;
+  --color-acc3: #9fe1cb;
+
+  /* ── Fonts (used as font-sora, font-dm) ── */
+  --font-family-sora: "Sora", sans-serif;
+  --font-family-dm:   "DM Sans", sans-serif;
+}
+
+/* ── hero-bg utility (gradient can't go in @theme) ── */
+.hero-bg {
+  background: var(--grad);
+}
+
+/* ── bg-p utility override so it uses the CSS var (supports dark mode) ── */
+.bg-p {
+  background-color: var(--p);
+}
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}

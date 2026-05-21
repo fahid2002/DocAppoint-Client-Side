@@ -36,6 +36,7 @@ export default function TopDoctors() {
 
         {/* Doctors grid */}
         <div
+          className="top-doctors-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
@@ -62,7 +63,7 @@ export default function TopDoctors() {
           .top-doctors-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 600px) {
-          .top-doctors-grid { grid-template-columns: 1fr !important; }
+          .top-doctors-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
         }
       `}} />
     </div>
