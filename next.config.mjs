@@ -1,4 +1,9 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://docappoint-server-side.onrender.com//api";
+/** @type {import('next').NextConfig} */
+// 🟢 FIXED: Hardcoded link so Vercel always knows where your backend is,
+// and we fixed the double slash typo (//api -> /api)
+const BACKEND_SERVER_URL = "https://docappoint-server-side.onrender.com/api";
+
+// const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://docappoint-server-side.onrender.com//api";
 
 const nextConfig = {
   images: {
