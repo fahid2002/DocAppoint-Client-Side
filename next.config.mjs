@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
-// 🟢 FIXED: Hardcoded link so Vercel always knows where your backend is,
-// and we fixed the double slash typo (//api -> /api)
+// 🟢 FIXED: Using a clean, hardcoded backend URL string
 const BACKEND_SERVER_URL = "https://docappoint-server-side.onrender.com/api";
-
-// const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://docappoint-server-side.onrender.com//api";
 
 const nextConfig = {
   images: {
@@ -18,16 +15,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/doctors/:path*",
-        destination: `${API_BASE}/doctors/:path*`,
-      },
-      {
-        source: "/api/appointments/:path*",
-        destination: `${API_BASE}/appointments/:path*`,
-      },
-      {
-        source: "/api/reviews/:path*",
-        destination: `${API_BASE}/reviews/:path*`,
+        // 🟢 FIXED: Caught all paths (doctors, appointments, reviews, auth) 
+        // with one clean rule pointing directly to BACKEND_SERVER_URL
+        source: "/api/:path*",
+        destination: `${BACKEND_SERVER_URL}/:path*`,
       },
     ];
   },
