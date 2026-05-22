@@ -12,7 +12,7 @@ DocAppoint is a full-stack doctor appointment booking platform built for patient
 - ⚡ **Instant Appointment Booking** — Confirm a doctor's appointment in under 2 minutes with real-time availability. Manage, reschedule, or cancel bookings from your personal dashboard.
 - 🔐 **Secure Authentication** — Email/password and Google OAuth sign-in powered by Better Auth with JWT-based session management. Sessions are stored in **HttpOnly cookies** (not localStorage) to protect against XSS. User data is encrypted and never shared without consent.
 - ⭐ **Verified Patient Reviews** — Patients can leave star ratings and written reviews after their appointment. Reviews are stored in MongoDB and displayed in a live **Swiper.js carousel** on the homepage.
-- 📱 **Fully Responsive UI** — Optimized for all screen sizes using inline CSS and custom CSS variables. Works seamlessly on mobile, tablet, and desktop.
+- 📱 **Fully Responsive UI** — Optimized for all screen sizes using tailwind, CSS and custom CSS variables. Works seamlessly on mobile, tablet, and desktop.
 - 🌗 **Dark / Light Mode** — System-aware theme switching with smooth transitions across the entire interface.
 - 📧 **Email Notifications** — Appointment confirmation emails sent via EmailJS integration.
 
@@ -107,7 +107,7 @@ src/
 │   ├── Testimonials/     # Swiper.js review carousel
 │   └── ...
 ├── libs/                 # Axios instance, auth client, helpers
-└── types/                # TJavaScript type definitions
+└── types/                # JavaScript type definitions
 ```
 
 ---
