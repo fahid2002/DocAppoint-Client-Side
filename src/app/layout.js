@@ -45,11 +45,9 @@ function ThemeScript() {
 
 export default function RootLayout({ children }) {
   return (
-    // Added suppressHydrationWarning here
     <html lang="en" suppressHydrationWarning>
       <head>
         <ThemeScript />
-         {/* Injected blocking script execution block */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap"
@@ -60,6 +58,8 @@ export default function RootLayout({ children }) {
       <body>
         <ThemeProvider>
           {children}
+          
+          {/* 🟢 React Hot Toast Engine configured with design token styles */}
           <Toaster
             position="bottom-right"
             toastOptions={{

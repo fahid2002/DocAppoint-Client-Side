@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "@/libs/auth-client";
@@ -15,40 +15,58 @@ export default function LoginClient() {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // 🟢 FIXED: Prioritizes Better Auth errors over default callback flags
+  useEffect(() => {
+    const toastType = params.get("toast");
+    const authError = params.get("error"); // Captures Better Auth native server errors
+
+    // 1. If Better Auth throws an error because the social email already exists as a password account
+    if (authError && (authError.includes("link") || authError.includes("exist") || authError === "OAuthAccountNotLinked")) {
+      toast.error("This email is already registered. Try logging in with your password!");
+    } 
+    // 2. Fallback checking if explicit custom triggers are present
+    else if (toastType === "already_registered") {
+      toast.error("This email is already registered. Try logging in!");
+    } else if (toastType === "register_success") {
+      toast.success("Registration successful! Please login to your account.");
+    } else if (toastType === "google_success") {
+      toast.success("Successfully authenticated via Google!");
+    }
+
+    // Clean address bar safely without interrupting states
+    if (toastType || authError) {
+      const newUrl = window.location.pathname + (params.get("redirect") ? `?redirect=${params.get("redirect")}` : "");
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  }, [params]);
+
   const handleLogin = async () => {
     setErr("");
     if (!email || !pass) { setErr("Please fill in all fields."); return; }
     setLoading(true);
     try {
-      const res = await signIn.email({ email, password: pass, callbackURL: redirect });
+      const res = await signIn.email({ 
+        email, 
+        password: pass, 
+        callbackURL: `${redirect}${redirect.includes('?') ? '&' : '?'}toast=login_success` 
+      });
 
-      // Better Auth returns error inside res.error — NOT by throwing
       if (res?.error) {
         setErr(res.error.message || "Invalid email or password.");
         setLoading(false);
-        return; // ← explicit return, never reaches getJwt on failure
+        return;
       }
 
-      // Only reaches here on successful login
       try {
-        await authApi.getJwt(email); // sets httpOnly JWT cookie from Express
+        await authApi.getJwt(email);
       } catch {
-        // JWT issue failed — log but don't block the user
-        console.error("JWT exchange failed — appointments may not work.");
+        console.error("JWT exchange failed.");
       }
 
-      toast.success("Welcome back!");
-      router.push(redirect);
+      router.push(`${redirect}${redirect.includes('?') ? '&' : '?'}toast=login_success`);
       router.refresh();
-
     } catch (e) {
-      // signIn.email itself threw — wrong password, network error, etc.
-      const msg = e?.message || "";
-      if (msg.toLowerCase().includes("invalid") || msg.toLowerCase().includes("credentials")) {
-        setErr("Invalid email or password.");
-      } else {
-        setErr("An error occurred. Please try again.");
-      }
+      console.error(e);
     } finally {
       setLoading(false);
     }
@@ -57,8 +75,11 @@ export default function LoginClient() {
   const handleGoogle = async () => {
     setLoading(true);
     try {
-      await signIn.social({ provider: "google", callbackURL: "/dashboard" });
-      // Google redirects away — JWT is issued in DashboardClient after redirect
+      // 🟢 Force successful redirection straight to dashboard context 
+      await signIn.social({ 
+        provider: "google", 
+        callbackURL: "/dashboard?toast=google_success" 
+      });
     } catch {
       toast.error("Google sign-in failed.");
       setLoading(false);

@@ -115,7 +115,8 @@ export default function DoctorDetailsClient({ doc }) {
   };
 
   return (
-    <>
+    // 🟢 FIXED: Wrapped root inside main with safety layout margins matching the layout template
+    <main style={{ paddingTop: 66, minHeight: "100vh" }} className="page-enter">
       {/* Hero */}
       <div className="det-hero">
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 1.5rem", display: "flex", gap: "2rem", alignItems: "flex-end" }} className="det-inner-resp">
@@ -304,6 +305,6 @@ export default function DoctorDetailsClient({ doc }) {
       <style>{`
         @media(max-width:600px){.det-inner-resp{flex-direction:column!important;}.info-resp{grid-template-columns:1fr!important;}}
       `}</style>
-    </>
+    </main>
   );
 }

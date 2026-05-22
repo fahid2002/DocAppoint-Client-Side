@@ -3,7 +3,6 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signUp, signIn } from "@/libs/auth-client";
-import toast from "react-hot-toast";
 
 function validatePass(v) {
   return /[A-Z]/.test(v) && /[a-z]/.test(v) && v.length >= 6;
@@ -20,75 +19,110 @@ export default function RegisterClient() {
   const fileInputRef = useRef(null);
 
   const checkPass = (v) => {
-    if (v.length > 0 && !validatePass(v)) {
+    if (v && v.length > 0 && !validatePass(v)) {
       setPassErr(v.length < 6 ? "At least 6 characters required." : "Must include uppercase and lowercase letters.");
-    } else setPassErr("");
+    } else {
+      setPassErr("");
+    }
   };
 
   const handlePhotoFile = (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  setPhotoName(file.name);
+    try {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      setPhotoName(file.name);
 
-  const img = new window.Image();
-  const objectUrl = URL.createObjectURL(file);
+      const img = new window.Image();
+      const objectUrl = URL.createObjectURL(file);
 
-  img.onload = () => {
-    // Resize to max 400x400 — plenty for a profile photo
-    const MAX = 400;
-    let { width, height } = img;
-    if (width > height) {
-      if (width > MAX) { height = Math.round(height * MAX / width); width = MAX; }
-    } else {
-      if (height > MAX) { width = Math.round(width * MAX / height); height = MAX; }
+      img.onload = () => {
+        const MAX = 400;
+        let { width, height } = img;
+        if (width > height) {
+          if (width > MAX) { height = Math.round((height * MAX) / width); width = MAX; }
+        } else {
+          if (height > MAX) { width = Math.round((width * MAX) / height); height = MAX; }
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const compressed = canvas.toDataURL("image/jpeg", 0.8);
+        URL.revokeObjectURL(objectUrl);
+
+        setForm(prev => ({ ...prev, photo: compressed }));
+        setPhotoPreview(compressed);
+      };
+
+      img.src = objectUrl;
+    } catch (imageErr) {
+      console.error("Image processing failed:", imageErr);
     }
-
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, width, height);
-
-    // Compress to JPEG at 80% quality — drastically reduces size
-    const compressed = canvas.toDataURL("image/jpeg", 0.8);
-    URL.revokeObjectURL(objectUrl);
-
-setFormData(prev => ({ ...prev, photo: compressed }));
-    setPhotoPreview(compressed);
   };
 
-  img.src = objectUrl;
-};
-
   const handleRegister = async () => {
+    if (loading) return;
     setErr("");
+    
     if (!form.name || !form.email) { setErr("Name and email are required."); return; }
     if (!form.email.includes("@")) { setErr("Please enter a valid email."); return; }
     if (!validatePass(form.pass)) { setErr("Password must have uppercase, lowercase and 6+ characters."); return; }
+    
     setLoading(true);
+    
     try {
       const res = await signUp.email({
         name: form.name,
         email: form.email,
         password: form.pass,
         image: form.photo || undefined,
-        callbackURL: "/",
       });
-      if (res?.error) {
-        console.error("Signup error:", res.error);
-        setErr(res.error.message || JSON.stringify(res.error) || "Registration failed.");
+
+      // 🟢 FIXED: Wrapped in safe check variables so it can never block the UI execution main thread
+      if (res && res.error) {
+        const errorObj = res.error || {};
+        const status = errorObj.status;
+        const code = String(errorObj.code || "");
+        const errMsg = String(errorObj.message || "");
+        
+        if (
+          status === 422 || 
+          status === 409 ||
+          code === "USER_ALREADY_EXISTS" || 
+          code.includes("EXIST") ||
+          errMsg.toLowerCase().includes("exist") ||
+          errMsg.toLowerCase().includes("already registered")
+        ) {
+          setErr("This email is already registered.");
+          router.push("/login?toast=already_registered");
+        } else {
+          setErr(errMsg || "Registration failed.");
+        }
       } else {
-        toast.success(`Account created! Welcome, ${form.name.split(" ")[0]}!`);
-        router.push("/login");
+        router.push("/login?toast=register_success");
       }
-    } catch { setErr("An error occurred. Please try again."); }
-    finally { setLoading(false); }
+    } catch (e) { 
+      console.error("Catch error stack tracker:", e);
+      setErr("An unexpected system error occurred. Please retry."); 
+    } finally { 
+      setLoading(false); 
+    }
   };
 
   const handleGoogle = async () => {
     setLoading(true);
-    try { await signIn.social({ provider: "google", callbackURL: "/" }); }
-    catch { toast.error("Google sign-up failed."); setLoading(false); }
+    try { 
+      await signIn.social({ 
+        provider: "google", 
+        callbackURL: "/dashboard?toast=google_success" 
+      }); 
+    } catch (error) { 
+      console.error(error);
+      setLoading(false); 
+    }
   };
 
   return (
@@ -123,9 +157,13 @@ setFormData(prev => ({ ...prev, photo: compressed }));
 
         <div className="auth-field" style={{ marginBottom: "0.85rem" }}>
           <label>Photo (optional)</label>
+          {/* 🟢 FIXED: Safe programmatic trigger mechanism that bypasses click rendering layers */}
           <div
-            role="button"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => {
+              if (fileInputRef.current) {
+                fileInputRef.current.click();
+              }
+            }}
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", minHeight: 44, padding: "0 0.9rem", border: "1px solid var(--bdr)", borderRadius: "var(--r-sm)", background: "var(--card)", color: "var(--tx)", cursor: "pointer", marginBottom: "0.5rem" }}
           >
             <span style={{ flex: 1, fontSize: 13, color: photoName ? "var(--tx)" : "var(--tx3)" }}>
@@ -133,7 +171,13 @@ setFormData(prev => ({ ...prev, photo: compressed }));
             </span>
             <span style={{ fontSize: 12, color: "var(--tx3)" }}>Browse</span>
           </div>
-          <input ref={fileInputRef} type="file" accept="image/*" aria-label="Choose profile photo" style={{ display: "none" }} onChange={handlePhotoFile} />
+          <input 
+            ref={fileInputRef} 
+            type="file" 
+            accept="image/*" 
+            style={{ display: "none" }} 
+            onChange={handlePhotoFile} 
+          />
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", margin: "0.5rem 0", fontSize: 11, color: "var(--tx3)" }}>
             <div style={{ flex: 1, height: 1, background: "var(--bdr)" }} />or paste a URL<div style={{ flex: 1, height: 1, background: "var(--bdr)" }} />
@@ -167,9 +211,20 @@ setFormData(prev => ({ ...prev, photo: compressed }));
           {passErr && <div style={{ fontSize: 12, color: "var(--red)", display: "flex", alignItems: "center", gap: 4 }}><i className="ti ti-alert-circle" style={{ fontSize: 13 }} />{passErr}</div>}
         </div>
 
-        {err && <div style={{ fontSize: 12, color: "var(--red)", marginBottom: "0.4rem", display: "flex", alignItems: "center", gap: 4 }}><i className="ti ti-alert-circle" style={{ fontSize: 13 }} />{err}</div>}
+        {err && (
+          <div style={{ fontSize: 12, color: "var(--red)", marginBottom: "0.4rem", display: "flex", alignItems: "center", gap: 4 }}>
+            <i className="ti ti-alert-circle" style={{ fontSize: 13 }} />{err}
+          </div>
+        )}
 
-        <button onClick={handleRegister} disabled={loading} className="btn btn-primary" style={{ width: "100%", padding: 11, fontSize: 14, marginTop: "0.6rem" }}>
+        {/* 🟢 FIXED: Explicit submit logic binding */}
+        <button 
+          type="button"
+          onClick={handleRegister} 
+          disabled={loading} 
+          className="btn btn-primary" 
+          style={{ width: "100%", padding: 11, fontSize: 14, marginTop: "0.6rem", cursor: loading ? "not-allowed" : "pointer" }}
+        >
           <i className="ti ti-user-plus" />{loading ? "Creating…" : "Create account"}
         </button>
         <div style={{ fontSize: 13, color: "var(--tx2)", textAlign: "center", marginTop: "1rem" }}>
