@@ -129,25 +129,22 @@ export default function HeroSection() {
               aria-hidden="true"
             />
             <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder={
-  typeof window !== "undefined" && window.innerWidth <= 380
-    ? "Search doctors..."
-    : "Search by doctor name or specialty…"}
-              className="hero-search-input min-w-0"
-              style={{
-                flex: 1,
-                background: "transparent",
-                border: "none",
-                outline: "none",
-                fontSize: 14,
-                color: "#fff",
-                padding: "7px 12px",
-                fontFamily: "DM Sans, sans-serif",
-              }}
-            />
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+  placeholder="Search doctors..."
+  className="hero-search-input min-w-0"
+  style={{
+    flex: 1,
+    background: "transparent",
+    border: "none",
+    outline: "none",
+    fontSize: 14,
+    color: "#fff",
+    padding: "7px 12px",
+    fontFamily: "DM Sans, sans-serif",
+  }}
+/>
             <button
               onClick={handleSearch}
               className="btn btn-primary btn-sm flex-shrink-0 hero-search-btn"

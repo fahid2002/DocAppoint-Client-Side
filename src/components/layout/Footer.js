@@ -367,6 +367,90 @@ export default function Footer() {
         </div>
       </footer>
 
+      {contactOpen && (
+  <div
+    className="modal-bg"
+    onClick={(e) => e.target === e.currentTarget && setContactOpen(false)}
+  >
+    <div className="modal">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.3rem" }}>
+        <h3 style={{ fontFamily: "Sora, sans-serif", fontSize: 18, fontWeight: 800, color: "var(--tx)", display: "flex", alignItems: "center", gap: 8 }}>
+          <i className="ti ti-mail" style={{ color: "var(--p)", fontSize: 17 }} />
+          Contact Us
+        </h3>
+
+        <button
+          onClick={() => setContactOpen(false)}
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: "var(--r-md)",
+            border: "1.5px solid var(--bdr)",
+            background: "transparent",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "var(--tx3)",
+            fontSize: 16,
+          }}
+        >
+          <i className="ti ti-x" />
+        </button>
+      </div>
+
+      <form ref={formRef} onSubmit={handleContact} style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+        <div className="auth-field">
+          <label>Your Name</label>
+          <input name="from_name" required placeholder="Your name" />
+        </div>
+
+        <div className="auth-field">
+          <label>Email Address</label>
+          <input name="from_email" type="email" required placeholder="your@email.com" />
+        </div>
+
+        <div className="auth-field">
+          <label>Subject</label>
+          <input name="subject" required placeholder="How can we help?" />
+        </div>
+
+        <div className="auth-field">
+          <label>Message</label>
+          <textarea
+            name="message"
+            required
+            rows={4}
+            placeholder="Write your message here..."
+            style={{
+              fontSize: 13.5,
+              padding: "11px 13px",
+              borderRadius: "var(--r-md)",
+              border: "1.5px solid var(--bdr)",
+              background: "var(--bg3)",
+              color: "var(--tx)",
+              outline: "none",
+              width: "100%",
+              resize: "vertical",
+              fontFamily: "DM Sans, sans-serif",
+            }}
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={sending}
+          className="btn btn-primary"
+          style={{ width: "100%", padding: "12px", fontSize: 14, marginTop: "0.3rem" }}
+        >
+          <i className="ti ti-send" />
+          {sending ? "Sending..." : "Send Message"}
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
       <style>{`
         .footer-blank {
           display: none;
