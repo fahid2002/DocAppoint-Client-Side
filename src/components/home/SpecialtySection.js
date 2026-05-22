@@ -21,49 +21,39 @@ export default function SpecialtySection() {
             <div className="sec-title">Find the right specialist</div>
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(8, 1fr)", gap: "0.6rem", justifyContent: "center", justifyItems: "stretch" }} className="spec-grid-resp">
+
+        <div
+          className="spec-grid-resp grid grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-8"
+          style={{ justifyContent: "center", justifyItems: "stretch" }}
+        >
           {SPECIALTIES.map((s) => (
             <div
               key={s.label}
-              className={`spec-chip${active === s.label ? " on" : ""}`}
+              className={`spec-chip${active === s.label ? " on" : ""} flex w-full cursor-pointer flex-col items-center justify-center gap-3 text-center`}
               onClick={() => handle(s.label)}
-              style={{ width: "100%" }}
             >
-              <div style={{ width: 38, height: 38, borderRadius: 10, background: active === s.label ? "rgba(255,255,255,0.2)" : "rgba(24,95,165,0.25)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 0.5rem", fontSize: 17, color: active === s.label ? "#fff" : "var(--p)", transition: "all 0.22s" }}>
+              <div
+                className="mx-auto mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[10px] text-[17px] transition-all"
+                style={{
+                  background: active === s.label ? "rgba(255,255,255,0.2)" : "rgba(24,95,165,0.25)",
+                  color: active === s.label ? "#fff" : "var(--p)",
+                }}
+              >
                 <i className={`ti ${s.icon}`} aria-hidden="true" />
               </div>
-              <div style={{ fontFamily: "Sora, sans-serif", fontSize: 10.5, fontWeight: 600, color: active === s.label ? "#fff" : "var(--tx2)", transition: "color 0.22s" }}>
+
+              <div
+                className="mt-2 text-center font-[Sora] text-[10.5px] font-semibold leading-tight transition-colors"
+                style={{
+                  color: active === s.label ? "#fff" : "var(--tx2)",
+                }}
+              >
                 {s.label === "General" ? "General Physician" : s.label}
               </div>
             </div>
           ))}
         </div>
       </div>
-      <style>{`
-        @media (max-width: 900px) {
-          .spec-grid-resp {
-            grid-template-columns: repeat(4, 1fr) !important;
-            justify-content: center !important;
-          }
-        }
-        @media (max-width: 600px) {
-          .spec-grid-resp {
-            grid-template-columns: repeat(4, 1fr) !important;
-            justify-content: center !important;
-          }
-          .spec-grid-resp > div:nth-child(5),
-          .spec-grid-resp > div:nth-child(6),
-          .spec-grid-resp > div:nth-child(7) {
-            grid-column: span 1;
-          }
-        }
-        @media (max-width: 480px) {
-          .spec-grid-resp {
-            grid-template-columns: repeat(4, 1fr) !important;
-            justify-content: center !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

@@ -15,8 +15,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
-  
-  // Destructure isPending to monitor background session verification
   const { data: session, isPending } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -55,21 +53,25 @@ export default function Navbar() {
 
   return (
     <>
-      {/*  Navbar */}
-      <nav className="navbar">
-        <div className="nav-inner">
+      {/* ── Navbar ── */}
+      <nav className="navbar fixed top-0 left-0 right-0 z-[200] bg-[var(--nav)] border-b border-[var(--nav-bdr)] backdrop-blur-md transition-colors duration-300">
+        <div className="nav-inner max-w-[1200px] mx-auto px-2 xs:px-3 sm:px-6 h-[66px] flex items-center justify-between gap-1">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-[10px] cursor-pointer flex-shrink-0">
-            <div className="logo-mark">
+          <Link
+            href="/"
+            className="flex items-center gap-[10px] cursor-pointer flex-shrink-0"
+          >
+            {/* logo-mark */}
+            <div className="w-[34px] h-[34px] sm:w-[40px] sm:h-[40px] bg-gradient-to-br from-[var(--p)] to-[var(--acc)] rounded-[11px] flex items-center justify-center text-[17px] sm:text-[20px] text-white flex-shrink-0">
               <i className="ti ti-stethoscope" aria-hidden="true" />
             </div>
-            <span className="font-[Sora,sans-serif] text-[18px] font-extrabold text-[var(--tx)] tracking-tight">
+            <span className="font-[Sora,sans-serif] text-[16px] sm:text-[18px] font-extrabold text-[var(--tx)] tracking-tight whitespace-nowrap">
               Doc<span className="text-[var(--acc3)]">Appoint</span>
             </span>
           </Link>
 
-          {/* Desktop nav links */}
+          {/* Desktop nav links — hidden on mobile */}
           <div className="hidden md:flex gap-[2px]">
             {navLinks.map((l) => (
               <Link
@@ -83,67 +85,81 @@ export default function Navbar() {
           </div>
 
           {/* Right section */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
 
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="icon-btn"
+              className="icon-btn w-[34px] h-[34px] sm:w-[38px] sm:h-[38px] rounded-[var(--r-md)] border-[1.5px] border-[var(--bdr)] bg-[var(--bg3)] flex items-center justify-center text-[var(--tx2)] text-[17px] sm:text-[18px] cursor-pointer transition-all duration-200 hover:bg-[var(--p3)] hover:text-[var(--p)]"
             >
               <i className={`ti ${theme === "dark" ? "ti-sun" : "ti-moon"}`} />
             </button>
 
-            {/* ── Auth State Condition Matrix ── */}
+            {/* ── Auth State ── */}
             {isPending ? (
-              /* 1. Loading State Placeholder (Prevents Flashing Login/Logout) */
-              <div className="flex items-center justify-center w-[120px] h-[32px]">
-                <div className="animate-pulse w-full h-4/5 bg-[var(--bdr)] rounded-md opacity-60" style={{ minWidth: "80px" }} />
+              /* 1. Loading skeleton */
+              <div className="flex items-center justify-center w-[80px] sm:w-[120px] h-[32px]">
+                <div className="animate-pulse w-full h-4/5 bg-[var(--bdr)] rounded-md opacity-60" />
               </div>
             ) : user ? (
-              /* 2. Authenticated State */
-              <div className="flex items-center gap-2">
-                <Link href="/dashboard" className="av-pill">
+              /* 2. Authenticated */
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                {/* Avatar pill */}
+                <Link
+                  href="/dashboard"
+                  className="av-pill flex items-center gap-2 bg-[var(--bg3)] border-[1.5px] border-[var(--bdr)] rounded-[30px] px-1 py-1 sm:px-3 cursor-pointer hover:border-[var(--p)] transition-all"
+                >
                   {displayImage ? (
                     <Image
                       src={displayImage}
                       alt={displayName || "User"}
                       width={30}
                       height={30}
-                      className="rounded-full object-cover w-[30px] h-[30px]"
+                      className="rounded-full object-cover w-[28px] h-[28px] sm:w-[30px] sm:h-[30px]"
                     />
                   ) : (
-                    <div className="av-circle">
+                    <div className="av-circle w-[28px] h-[28px] sm:w-[30px] sm:h-[30px] rounded-full bg-gradient-to-br from-[var(--p)] to-[var(--acc)] flex items-center justify-center text-[11px] sm:text-[12px] font-bold text-white flex-shrink-0">
                       {initials(displayName || "U")}
                     </div>
                   )}
-                  <span className="text-xs font-semibold text-[var(--tx)]">
+                  {/* Hide name on very small screens */}
+                  <span className="hidden sm:inline text-xs font-semibold text-[var(--tx)]">
                     {(displayName || "User").split(" ")[0].toUpperCase()}
                   </span>
                 </Link>
+
+                {/* Logout — icon-only on small screens */}
                 <button
                   onClick={handleLogout}
-                  className="btn btn-danger btn-sm"
+                  className="btn btn-danger btn-sm flex items-center gap-1 px-2 sm:px-[14px] text-[11px] sm:text-[12.5px] py-[6px] rounded-[var(--r-md)] border-[1.5px] border-red-300/40 text-[var(--red)] bg-transparent cursor-pointer transition-all hover:bg-[var(--red-bg)] whitespace-nowrap"
+                  aria-label="Logout"
                 >
                   <i className="ti ti-logout" aria-hidden="true" />
-                  Logout
+                  <span className="hidden sm:inline">Logout</span>
                 </button>
               </div>
             ) : (
-              /* 3. Unauthenticated State */
-              <div className="flex gap-2">
-                <Link href="/login" className="btn btn-outline btn-sm">
+              /* 3. Unauthenticated */
+              <div className="flex gap-1.5 sm:gap-2">
+                <Link
+                  href="/login"
+                  className="btn btn-outline btn-sm inline-flex items-center gap-1.5 px-2.5 sm:px-[14px] py-[6px] rounded-[var(--r-md)] text-[11px] sm:text-[12.5px] font-semibold border-[1.5px] border-[var(--bdr)] text-[var(--tx)] whitespace-nowrap transition-all hover:bg-[var(--bg3)]"
+                >
                   Login
                 </Link>
-                <Link href="/register" className="btn btn-primary btn-sm">
+                <Link
+                  href="/register"
+                  className="btn btn-primary btn-sm inline-flex items-center gap-1.5 px-2.5 sm:px-[14px] py-[6px] rounded-[var(--r-md)] text-[11px] sm:text-[12.5px] font-semibold bg-gradient-to-br from-[var(--p)] to-[var(--p2)] text-white border-transparent whitespace-nowrap shadow-[0_4px_14px_rgba(24,95,165,0.28)] transition-all hover:brightness-110 hover:-translate-y-0.5"
+                >
                   Register
                 </Link>
               </div>
             )}
 
-            {/* Hamburger */}
+            {/* Hamburger — only on mobile */}
             <button
-              className="flex md:hidden flex-col gap-[5px] cursor-pointer p-1 flex-shrink-0"
+              className="flex md:hidden flex-col gap-[5px] cursor-pointer p-1 flex-shrink-0 ml-0.5"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Menu"
             >
@@ -175,7 +191,7 @@ export default function Navbar() {
 
           <hr className="border-[var(--bdr)] my-2" />
 
-          {/* Mobile Menu Auth State Synchronizer */}
+          {/* Mobile auth */}
           {isPending ? (
             <div className="h-[40px] w-1/2 bg-[var(--bg3)] rounded-md animate-pulse m-2" />
           ) : !user ? (
