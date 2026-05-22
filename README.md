@@ -1,6 +1,6 @@
 # 🩺 DocAppoint — Book Top Doctors in Bangladesh
 
-**Live Site:** [https://doc-appoint-client.vercel.app](https://doc-appoint-client.vercel.app)
+**Live Site:** https://doc-appoint-client-side.vercel.app
 
 DocAppoint is a full-stack doctor appointment booking platform built for patients in Bangladesh. It allows users to browse BMDC-verified specialist doctors, book appointments instantly, manage their schedules, and leave reviews — all from a fast, mobile-friendly interface available 24/7.
 
