@@ -25,7 +25,10 @@ const nextConfig = {
         source: "/api/reviews/:path*",
         destination: `${BACKEND_SERVER_URL}/reviews/:path*`,
       },
-      // ❌ DO NOT rewrite /api/auth/* — that belongs to Better Auth on Next.js
+      {
+        source: "/api/auth/jwt",
+        destination: `${BACKEND_SERVER_URL}/auth/jwt`,
+      },
     ];
   },
 };
