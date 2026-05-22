@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-// 🟢 FIXED: Using a clean, hardcoded backend URL string
 const BACKEND_SERVER_URL = "https://docappoint-server-side.onrender.com/api";
 
 const nextConfig = {
@@ -15,11 +14,18 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        // 🟢 FIXED: Caught all paths (doctors, appointments, reviews, auth) 
-        // with one clean rule pointing directly to BACKEND_SERVER_URL
-        source: "/api/:path*",
-        destination: `${BACKEND_SERVER_URL}/:path*`,
+        source: "/api/doctors/:path*",
+        destination: `${BACKEND_SERVER_URL}/doctors/:path*`,
       },
+      {
+        source: "/api/appointments/:path*",
+        destination: `${BACKEND_SERVER_URL}/appointments/:path*`,
+      },
+      {
+        source: "/api/reviews/:path*",
+        destination: `${BACKEND_SERVER_URL}/reviews/:path*`,
+      },
+      // ❌ DO NOT rewrite /api/auth/* — that belongs to Better Auth on Next.js
     ];
   },
 };
