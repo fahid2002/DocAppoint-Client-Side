@@ -26,6 +26,7 @@ const nextConfig = {
         destination: `${BACKEND_SERVER_URL}/reviews/:path*`,
       },
       {
+        // ✅ JWT endpoint on Render
         source: "/api/auth/jwt",
         destination: `${BACKEND_SERVER_URL}/auth/jwt`,
       },
