@@ -67,7 +67,7 @@ export default function Navbar() {
               <i className="ti ti-stethoscope" aria-hidden="true" />
             </div>
             <span className="font-[Sora,sans-serif] text-[16px] sm:text-[18px] font-extrabold text-[var(--tx)] tracking-tight whitespace-nowrap">
-              Doc<span className="text-[var(--acc3)]">Appoint</span>
+              Doc<span className="text-[var(--acc)] dark:text-[#184d86]">Appoint</span>
             </span>
           </Link>
 
@@ -171,49 +171,79 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ── Mobile menu ── */}
-      {menuOpen && (
-        <div className="fixed top-[66px] left-0 right-0 z-[199] bg-[var(--nav)] border-b border-[var(--nav-bdr)] px-6 py-4 flex flex-col gap-1">
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setMenuOpen(false)}
-              className={`mobile-link text-sm px-[14px] py-[10px] rounded-lg transition-colors duration-200 border-l-[3px] ${
-                pathname === l.href
-                  ? "mobile-link-active font-bold bg-[var(--p3)] border-[var(--p)] text-[var(--p)]"
-                  : "font-medium border-transparent text-[var(--tx)] hover:bg-[var(--bg3)]"
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
+      {/* Mobile menu */}
+{menuOpen && (
+  <div
+    style={{
+      display: "flex",
+      position: "fixed",
+      top: 66,
+      left: 0,
+      right: 0,
+      background: "var(--nav)",
+      borderBottom: "1px solid var(--nav-bdr)",
+      padding: "1rem 0",
+      zIndex: 199,
+      flexDirection: "column",
+      gap: 6,
+    }}
+  >
+    {navLinks.map((l) => (
+      <Link
+        key={l.href}
+        href={l.href}
+        onClick={() => setMenuOpen(false)}
+        className={pathname === l.href ? "mobile-link-active" : "mobile-link"}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          height: 48,
+          marginLeft: 10,
+          marginRight: 10,
+          paddingLeft: 10,
+          paddingRight: 18,
+          borderRadius: 13,
+          fontSize: 14,
+          fontWeight: pathname === l.href ? 700 : 500,
 
-          <hr className="border-[var(--bdr)] my-2" />
+          color:
+            pathname === l.href
+              ? theme === "dark"
+                ? "#7eb8f7"
+                : "#0c447c"
+              : "var(--tx)",
 
-          {/* Mobile auth */}
-          {isPending ? (
-            <div className="h-[40px] w-1/2 bg-[var(--bg3)] rounded-md animate-pulse m-2" />
-          ) : !user ? (
-            <>
-              <Link
-                href="/login"
-                onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium px-[14px] py-[10px] rounded-lg text-[var(--tx)] hover:bg-[var(--bg3)] transition-colors duration-200"
-              >
-                Login
-              </Link>
-              <Link
-                href="/register"
-                onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium px-[14px] py-[10px] rounded-lg text-[var(--tx)] hover:bg-[var(--bg3)] transition-colors duration-200"
-              >
-                Register
-              </Link>
-            </>
-          ) : null}
-        </div>
-      )}
+          background:
+            pathname === l.href
+              ? theme === "dark"
+                ? "#0f2e4c"
+                : "var(--p3)"
+              : "transparent",
+
+          borderLeft:
+            pathname === l.href
+              ? `4px solid ${theme === "dark" ? "#7eb8f7" : "#0c447c"}`
+              : "4px solid transparent",
+
+          cursor: "pointer",
+          transition: "all 0.2s ease",
+        }}
+      >
+        {l.label}
+      </Link>
+    ))}
+
+    <div
+      style={{
+        height: 1,
+        background: "var(--bdr)",
+        marginTop: 14,
+        marginLeft: 10,
+        marginRight: 10,
+      }}
+    />
+  </div>
+)}
     </>
   );
 }

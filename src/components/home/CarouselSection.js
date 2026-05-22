@@ -15,8 +15,8 @@ const slides = [
 
 export default function CarouselSection() {
   return (
-    <div style={{ background: "linear-gradient(135deg, #042c53, #185fa5)", padding: "2rem 0" }}>
-      <div
+<div className="carousel-section-bg" style={{ padding: "2rem 0" }}>
+        <div
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
@@ -109,10 +109,37 @@ export default function CarouselSection() {
         </Swiper>
 
         {/* Pagination dot styles */}
-        <style dangerouslySetInnerHTML={{ __html: `
-          .swiper-pagination-bullet { background: rgba(255,255,255,0.4) !important; opacity: 1 !important; }
-          .swiper-pagination-bullet-active { background: #fff !important; width: 22px !important; border-radius: 4px !important; }
-        `}} />
+        <style
+  dangerouslySetInnerHTML={{
+    __html: `
+      .swiper-pagination-bullet {
+        background: rgba(255,255,255,0.4) !important;
+        opacity: 1 !important;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: #fff !important;
+        width: 22px !important;
+        border-radius: 4px !important;
+      }
+
+      /* Light mode */
+      .carousel-section-bg {
+        background: linear-gradient(135deg, #042c53, #185fa5);
+      }
+
+      /* Dark mode */
+      .dark .carousel-section-bg {
+        background: linear-gradient(
+          135deg,
+          #020b14 0%,
+          #051a2d 45%,
+          #0a3154 100%
+        );
+      }
+    `,
+  }}
+/>
       </div>
     </div>
   );
