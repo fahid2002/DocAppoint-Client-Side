@@ -1,11 +1,6 @@
 import axios from "axios";
 
-// Browser: use relative /api (goes through Next.js rewrite proxy)
-// Server (SSR): use absolute Render URL directly (relative URLs don't work in Node.js)
-const API_URL =
-  typeof window === "undefined"
-    ? process.env.API_URL || "http://localhost:5000/api"        // SSR
-    : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"; // Browser
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -13,7 +8,6 @@ export const api = axios.create({
 });
 
 // Attach JWT from localStorage as Bearer token on every request
-// Only runs in browser (localStorage doesn't exist in SSR)
 api.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("da_jwt");
@@ -49,8 +43,6 @@ export const appointmentsApi = {
   delete: (id) => api.delete(`/appointments/${id}`),
 };
 
-// ⚠️ This hits your Render backend (/api/auth/jwt), NOT Better Auth
-// Make sure your Render server has a POST /api/auth/jwt endpoint
 export const authApi = {
   getJwt: async (email) => {
     const res = await api.post("/auth/jwt", { email });
