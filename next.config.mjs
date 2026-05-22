@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://docappoint-server-o99c.onrender.com/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://docappoint-server-side.onrender.com//api";
 
 const nextConfig = {
   images: {

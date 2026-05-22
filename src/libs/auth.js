@@ -14,7 +14,7 @@ const client = new MongoClient(process.env.MONGODB_URI, {
   connectTimeoutMS: 10000,
 });
 
-// 🟢 Safely extract and expose the database instance mapping explicitly
+
 const db = client.db("DocAppoint-JS");
 
 export const auth = betterAuth({
@@ -22,7 +22,7 @@ export const auth = betterAuth({
   
   account: {
     accountLinking: {
-      // 🟢 CHANGE TO FALSE: Blocks Google sign-ups from auto-logging into existing email/password accounts
+
       enabled: false, 
     },
   },
