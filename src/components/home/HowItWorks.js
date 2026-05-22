@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function HowItWorks() {
-  const params = useSearchParams();
-
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     const toastType = params.get("toast");
 
     if (toastType === "login_success") {
@@ -29,7 +27,7 @@ export default function HowItWorks() {
         window.location.pathname
       );
     }
-  }, [params]);
+  }, []);
 
   const steps = [
     {
@@ -80,7 +78,10 @@ export default function HowItWorks() {
             marginBottom: "1.8rem",
           }}
         >
-          <div className="eyebrow" style={{ textAlign: "center" }}>
+          <div
+            className="eyebrow"
+            style={{ textAlign: "center" }}
+          >
             Simple process
           </div>
 
