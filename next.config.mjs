@@ -1,5 +1,4 @@
-/** @type {import('next').NextConfig} */
-const BACKEND_SERVER_URL = "https://docappoint-server-side.onrender.com/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://docappoint-server-side.onrender.com/api";
 
 const nextConfig = {
   images: {
@@ -15,20 +14,15 @@ const nextConfig = {
     return [
       {
         source: "/api/doctors/:path*",
-        destination: `${BACKEND_SERVER_URL}/doctors/:path*`,
+        destination: `${API_BASE}/doctors/:path*`,
       },
       {
         source: "/api/appointments/:path*",
-        destination: `${BACKEND_SERVER_URL}/appointments/:path*`,
+        destination: `${API_BASE}/appointments/:path*`,
       },
       {
         source: "/api/reviews/:path*",
-        destination: `${BACKEND_SERVER_URL}/reviews/:path*`,
-      },
-      {
-        // ✅ JWT endpoint on Render
-        source: "/api/auth/jwt",
-        destination: `${BACKEND_SERVER_URL}/auth/jwt`,
+        destination: `${API_BASE}/reviews/:path*`,
       },
     ];
   },
